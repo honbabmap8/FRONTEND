@@ -5,6 +5,16 @@ import MapDetail from "../component/MapDetail";
 import BottomNav from "../component/BottomNav";
 import Marker from "../assets/marker.svg";
 
+const STORE_COORDINATES = {
+  1: { lat: 37.49797, lng: 127.0276 },
+  2: { lat: 37.49842, lng: 127.02822 },
+  3: { lat: 37.49742, lng: 127.02698 },
+  4: { lat: 37.49808, lng: 127.02642 },
+  5: { lat: 37.49718, lng: 127.02803 },
+};
+
+const stores = storeData.flatMap((response) => response.data ?? [response]);
+
 const Map = () => {
   const mapRef = useRef(null);
   const [selectedStore, setSelectedStore] = useState(null);
@@ -16,8 +26,8 @@ const Map = () => {
       const container = mapRef.current;
 
       const center = new window.kakao.maps.LatLng(
-        37.602000,
-        127.013511
+        37.49797,
+        127.0276
       );
 
       const map = new window.kakao.maps.Map(container, {
@@ -37,10 +47,14 @@ const Map = () => {
       const markers = [];
       const labels = [];
 
-      storeData.forEach((store) => {
+      stores.forEach((store) => {
+        const coordinates = STORE_COORDINATES[store.restaurantId] ?? store;
+
+        if (!coordinates.lat || !coordinates.lng) return;
+
         const position = new window.kakao.maps.LatLng(
-          store.lat,
-          store.lng
+          coordinates.lat,
+          coordinates.lng
         );
 
         const marker = new window.kakao.maps.Marker({

@@ -1,103 +1,202 @@
-import eximg1 from "../assets/eximg1.jpg";
 
 export const storeData = [
   {
-    id: 1,
-    name: "콘콘",
-    lat: 37.602683,
-    lng: 127.013511,
-    img: eximg1,
-    detail: "혼밥하기 좋은 중식당",
-    keyword: "1인 짜장면, 탕수육 세트",
-    toggle: {
-      cheap: true,
-      fast: false,
-      lowWait: true,
-      lateNight: false,
+  "message": "식당 상세 정보 조회에 성공했습니다.",
+  "data": [
+    {
+      "restaurantId": 1,
+      "name": "프랭크 버거 강남점",
+      "imageUrl": "https://example.com/images/burger_detail.jpg",
+      "restSoloLevel": 1,
+      "representativeMenu": "치즈버거 세트, 베이컨 치즈버거 세트",
+      "restaurantDetail": "혼밥하기 좋은 패스트푸드점",
+      "locationInfo": {
+        "stationId": 1,
+        "stationName": "강남역",
+        "distance": 100,
+        "time": 1
+      },
+      "restFeatureList": [
+        {
+          "featId": 1,
+          "featName": "1인석 있음"
+        },
+        {
+          "featId": 2,
+          "featName": "1인 메뉴 가능"
+        }
+      ],
+      "restReviewTagList": [
+        {
+          "tagId": 1,
+          "tagName": "가성비"
+        },
+        {
+          "tagId": 2,
+          "tagName": "빠른 식사"
+        },
+        {
+          "tagId": 3,
+          "tagName": "야식 가능"
+        },
+        {
+          "tagId": 4,
+          "tagName": "웨이팅 적음"
+        }
+      ]
     },
-    where: "정릉역에서 약 1분(100M)",
-    level: "레벨 1",
-    feature1: "1인석 있음",
-    feature2: "1인 메뉴 가능",
-  },
-
-  {
-    id: 2,
-    name: "옛날손칼국수",
-    lat: 37.603102,
-    lng: 127.012884,
-    img: eximg1,
-    detail: "가성비 좋은 정통 칼국수집",
-    keyword: "손칼국수, 김치만두",
-    toggle: {
-      cheap: true,
-      fast: true,
-      lowWait: false,
-      lateNight: false,
+    {
+      "restaurantId": 2,
+      "name": "역전우동 강남점",
+      "imageUrl": "https://example.com/images/udon_detail.jpg",
+      "restSoloLevel": 1,
+      "representativeMenu": "어묵우동, 돈까스",
+      "restaurantDetail": "혼자 빠르게 식사하기 좋은 우동 전문점",
+      "locationInfo": {
+        "stationId": 1,
+        "stationName": "강남역",
+        "distance": 250,
+        "time": 3
+      },
+      "restFeatureList": [
+        {
+          "featId": 1,
+          "featName": "1인석 있음"
+        },
+        {
+          "featId": 3,
+          "featName": "키오스크 주문"
+        }
+      ],
+      "restReviewTagList": [
+        {
+          "tagId": 1,
+          "tagName": "가성비"
+        },
+        {
+          "tagId": 2,
+          "tagName": "빠른 식사"
+        },
+        {
+          "tagId": 5,
+          "tagName": "혼밥 추천"
+        }
+      ]
     },
-    where: "정릉역에서 약 3분(230M)",
-    level: "레벨 2",
-    feature1: "양 많음",
-    feature2: "국물 진함",
-  },
-
-  {
-    id: 3,
-    name: "정릉순대국",
-    lat: 37.602291,
-    lng: 127.014102,
-    img: eximg1,
-    detail: "든든하게 먹기 좋은 순대국밥집",
-    keyword: "순대국, 머릿고기",
-    toggle: {
-      cheap: false,
-      fast: true,
-      lowWait: true,
-      lateNight: true,
+    {
+      "restaurantId": 3,
+      "name": "홍콩반점 강남점",
+      "imageUrl": "https://example.com/images/chinese_detail.jpg",
+      "restSoloLevel": 2,
+      "representativeMenu": "짜장면, 짬뽕",
+      "restaurantDetail": "혼자서도 부담 없이 방문 가능한 중식당",
+      "locationInfo": {
+        "stationId": 1,
+        "stationName": "강남역",
+        "distance": 400,
+        "time": 5
+      },
+      "restFeatureList": [
+        {
+          "featId": 2,
+          "featName": "1인 메뉴 가능"
+        },
+        {
+          "featId": 4,
+          "featName": "포장 가능"
+        }
+      ],
+      "restReviewTagList": [
+        {
+          "tagId": 6,
+          "tagName": "매운맛"
+        },
+        {
+          "tagId": 2,
+          "tagName": "빠른 식사"
+        },
+        {
+          "tagId": 4,
+          "tagName": "웨이팅 적음"
+        }
+      ]
     },
-    where: "정릉역에서 약 2분(170M)",
-    level: "레벨 3",
-    feature1: "24시간 운영",
-    feature2: "혼밥 가능",
-  },
-
-  {
-    id: 4,
-    name: "시장떡볶이",
-    lat: 37.603441,
-    lng: 127.013954,
-    img: eximg1,
-    detail: "학교 앞 감성의 분식 맛집",
-    keyword: "즉석떡볶이, 튀김",
-    toggle: {
-      cheap: true,
-      fast: true,
-      lowWait: true,
-      lateNight: false,
+    {
+      "restaurantId": 4,
+      "name": "샐러디 강남역점",
+      "imageUrl": "https://example.com/images/salady_detail.jpg",
+      "restSoloLevel": 1,
+      "representativeMenu": "닭가슴살 샐러드, 연어 포케",
+      "restaurantDetail": "건강식을 선호하는 혼밥러에게 적합한 샐러드 전문점",
+      "locationInfo": {
+        "stationId": 1,
+        "stationName": "강남역",
+        "distance": 180,
+        "time": 2
+      },
+      "restFeatureList": [
+        {
+          "featId": 1,
+          "featName": "1인석 있음"
+        },
+        {
+          "featId": 5,
+          "featName": "콘센트 제공"
+        }
+      ],
+      "restReviewTagList": [
+        {
+          "tagId": 7,
+          "tagName": "건강식"
+        },
+        {
+          "tagId": 5,
+          "tagName": "혼밥 추천"
+        },
+        {
+          "tagId": 8,
+          "tagName": "깔끔함"
+        }
+      ]
     },
-    where: "정릉시장 안쪽 1분",
-    level: "레벨 1",
-    feature1: "학생 인기",
-    feature2: "포장 가능",
-  },
-
-  {
-    id: 5,
-    name: "정릉김밥",
-    lat: 37.602914,
-    lng: 127.012411,
-    img: eximg1,
-    detail: "간단하게 먹기 좋은 김밥 전문점",
-    keyword: "참치김밥, 라볶이",
-    toggle: {
-      cheap: true,
-      fast: true,
-      lowWait: true,
-      lateNight: false,
-    },
-    where: "정릉역에서 약 4분(300M)",
-    level: "레벨 1",
-    feature1: "포장 빠름",
-    feature2: "메뉴 다양",
-  },
+    {
+      "restaurantId": 5,
+      "name": "김밥천국 강남점",
+      "imageUrl": "https://example.com/images/gimbap_detail.jpg",
+      "restSoloLevel": 1,
+      "representativeMenu": "참치김밥, 제육덮밥",
+      "restaurantDetail": "메뉴가 다양하고 혼밥하기 편한 분식집",
+      "locationInfo": {
+        "stationId": 1,
+        "stationName": "강남역",
+        "distance": 320,
+        "time": 4
+      },
+      "restFeatureList": [
+        {
+          "featId": 2,
+          "featName": "1인 메뉴 가능"
+        },
+        {
+          "featId": 4,
+          "featName": "포장 가능"
+        }
+      ],
+      "restReviewTagList": [
+        {
+          "tagId": 1,
+          "tagName": "가성비"
+        },
+        {
+          "tagId": 3,
+          "tagName": "야식 가능"
+        },
+        {
+          "tagId": 5,
+          "tagName": "혼밥 추천"
+        }
+      ]
+    }
+  ]
+},
 ];
