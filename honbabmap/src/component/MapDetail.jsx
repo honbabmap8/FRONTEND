@@ -1,50 +1,90 @@
+import { Fragment } from "react";
 import "../styles/MapDetail.css";
+import Menu from "../assets/menuIcon.svg";
+import Eximg from "../assets/eximg1.jpg";
+import Singlemenu from "../assets/singlemenu.svg";
+import Table from "../assets/table.svg";
+
+const featureIconMap = {
+  1: Table,
+  2: Singlemenu,
+};
 
 function MapDetail({ store }) {
   if (!store) return null;
+
+  const restaurant = store.data ? store.data[0] : store;
+  const features = restaurant.restFeatureList ?? [];
+  const tags = restaurant.restReviewTagList ?? [];
+  const location = restaurant.locationInfo;
 
   return (
     <div className="mapdetail">
       <hr id="hr1" />
 
       <div className="mapdetailtop">
-        <img src={store.img} alt="store" />
+        <img
+          className="storeimg"
+          src={restaurant.imageUrl || Eximg}
+          alt={restaurant.name}
+          onError={(event) => {
+            event.currentTarget.src = Eximg;
+          }}
+        />
 
         <div id="detailcontainer">
-          <p className="level">{store.level}</p>
-          <h3 className="name">{store.name}</h3>
-          <p>{store.keyword}</p>
-          <p className="desc">{store.detail}</p>
-          <p className="feature1">{store.feature1}</p>
-          <p className="feature2">{store.feature2}</p>
+          <p className="level">레벨 {restaurant.restSoloLevel}</p>
+          <h3 className="name">{restaurant.name}</h3>
+
+          <div className="menulist">
+            <img className="menuiconimage" alt="메뉴 이미지" src={Menu} />
+            <p className="menudetail">{restaurant.representativeMenu}</p>
+          </div>
+
+          <p className="desc">{restaurant.restaurantDetail}</p>
+
+          <div className="feature-list">
+            {features.map((feature, index) => {
+              const icon = featureIconMap[feature.featId];
+
+              return (
+                <Fragment key={feature.featId}>
+                  <div className="feature1">
+                    {icon && (
+                      <img
+                        className="feature-icon"
+                        src={icon}
+                        alt=""
+                        aria-hidden="true"
+                      />
+                    )}
+                    <p>{feature.featName}</p>
+                  </div>
+                  {index < features.length - 1 && (
+                    <span className="feature-break" aria-hidden="true" />
+                  )}
+                </Fragment>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-     
       <div className="mapdetailbtns">
-      
-        <button>
-        {store.toggle?.cheap ? "가성비" : "고급"}
-        </button>
-
-        <button>
-          {store.toggle?.fast ? "빠른 식사" : "여유로운 식사"}
-        </button>
-
-        <button>
-          {store.toggle?.lowWait ? "웨이팅 적음" : "웨이팅 있음"}
-        </button>
-
-        <button>
-          {store.toggle?.lateNight ? "야식 가능" : "일반 식사"}
-        </button>
+        {tags.map((tag) => (
+          <button key={tag.tagId} type="button">
+            {tag.tagName}
+          </button>
+        ))}
       </div>
 
       <hr id="hr2" />
 
       <div className="mapdetailbottom">
-        <p>📍 {store.where}</p>
-        <p>자세히 보기</p>
+        <p className="where">
+          📍 {location?.stationName} {location?.distance}m · 도보 {location?.time}분
+        </p>
+        <p className="lookdetail">자세히 보기 </p>
       </div>
     </div>
   );

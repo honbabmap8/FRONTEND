@@ -7,15 +7,21 @@ import {
 import "./App.css";
 
 import Map from "./pages/Map";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
+          path="/map"
           element={<Map />}
         />
+        <Route
+          path="/home"
+          element={<Home />}
+        />
+        
       </Routes>
     </BrowserRouter>
   );
