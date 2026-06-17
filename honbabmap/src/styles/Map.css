@@ -71,3 +71,83 @@
 
   background-color: #ddd;
 }
+
+.map-marker-label {
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.marker-radar-wrap {
+  pointer-events: none;
+}
+
+.map div:has(> .marker-radar-wrap) {
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+.marker-radar {
+  position: relative;
+  width: 75vw;
+  max-width: 360px;
+  min-width: 280px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.marker-radar-wrap *,
+.marker-radar * {
+  pointer-events: none;
+}
+
+.radar-rings,
+.radar-sweep {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radar-rings {
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(255, 72, 0, 0.72);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 19%, rgba(255, 72, 0, 0.58) 20%, transparent 21%),
+    radial-gradient(circle, transparent 0 39%, rgba(255, 72, 0, 0.5) 40%, transparent 41%),
+    radial-gradient(circle, transparent 0 59%, rgba(255, 72, 0, 0.42) 60%, transparent 61%),
+    radial-gradient(circle, transparent 0 79%, rgba(255, 72, 0, 0.36) 80%, transparent 81%);
+}
+
+.radar-sweep {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 18deg,
+    rgba(255, 72, 0, 0.7) 0deg,
+    rgba(255, 72, 0, 0.38) 42deg,
+    rgba(255, 72, 0, 0) 82deg,
+    rgba(255, 72, 0, 0) 360deg
+  );
+  animation: radarSpin 2.2s linear infinite;
+  opacity: 0.9;
+}
+
+@keyframes radarSpin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

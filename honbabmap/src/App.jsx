@@ -8,6 +8,7 @@ import "./App.css";
 
 import Map from "./pages/Map";
 import Home from "./pages/Home";
+import Result from "./pages/Result";
 
 function App() {
   return (
@@ -16,6 +17,10 @@ function App() {
         <Route
           path="/map"
           element={<Map />}
+        />
+        <Route
+          path="/result"
+          element={<Result />}
         />
         <Route
           path="/home"
