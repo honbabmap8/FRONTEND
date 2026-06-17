@@ -1,5 +1,3 @@
-/* MyPage.css */
-
 .mypage-page {
   position: relative;
   width: 100%;
@@ -37,8 +35,8 @@
 }
 
 .mypage-character {
-  width: 88px;
-  height: 88px;
+  width: 150px;
+  height: 100px;
   object-fit: contain;
   flex-shrink: 0;
 }
@@ -67,12 +65,13 @@
 
 .mypage-level {
   font-size: 13px;
-  color: #ea512d;
+  color: black;
   font-weight: 600;
   margin: 0;
 }
 
 .mypage-level-num {
+  color: #e7795d;
   font-weight: 800;
 }
 
@@ -142,8 +141,8 @@
 }
 
 .mypage-fav-plus-icon {
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   object-fit: contain;
 }
 
@@ -184,22 +183,21 @@
 }
 
 .mypage-empty-btn {
-  margin-top: 14px;
+  margin-top: 10px;
   padding: 12px 32px;
-  background: #ea512d;
+  background: #e7795d;
   color: #fff;
   border: none;
-  border-radius: 24px;
+  border-radius: 7px;
   font-size: 14px;
   font-weight: 700;
   font-family: "Pretendard", sans-serif;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(234, 81, 45, 0.3);
   transition: background 0.15s;
 }
 
 .mypage-empty-btn:hover {
-  background: #c93e1e;
+  background: #d65d40;
 }
 
 /* 가게 목록 */

@@ -46,32 +46,35 @@ const Review = () => {
   };
 
   const handleSubmit = () => {
-    // liked === true 면 마이페이지 단골가게에 추가
     alert("리뷰 제출됨 (API 연동 예정)");
     navigate(-1);
   };
 
   return (
     <div className="review-page">
-      <div className="review-body">
-        <div className="review-store-header">
-          <div className="review-store-img-wrap">
-            <div className="review-store-img-placeholder" />
-          </div>
-          <div className="review-store-meta">
-            <p className="review-store-name">{store.name}</p>
-            <p className="review-store-date">
-              {store.date}　{store.visitCount}번째 방문
-            </p>
-          </div>
+      {/* ── 가게 헤더  ── */}
+      <div className="review-store-header">
+        <img
+          src="/image/review_character.svg"
+          alt="store-icon"
+          className="review-store-avatar"
+        />
+        <div className="review-store-meta">
+          <p className="review-store-name">{store.name}</p>
+          <p className="review-store-date">
+            {store.date} {store.visitCount}번째 방문
+          </p>
         </div>
+      </div>
 
+      {/* ── 본문 스크롤 영역 ── */}
+      <div className="review-body">
         <div className="review-like-card">
           <p className="review-like-title">이 곳이 마음에 든다면,</p>
           <p className="review-like-sub">
-            좋아요를 누르고 취향이 비슷한
+            좋아요를 누르고 취향에 맞는
             <br />
-            사람을 추천받으세요.
+            가게를 추천받으세요.
           </p>
           <button
             className={`review-like-btn ${liked ? "liked" : ""}`}
@@ -112,7 +115,7 @@ const Review = () => {
           disabled={selected.length === 0}
           onClick={handleSubmit}
         >
-          제보 완료
+          리뷰 등록
         </button>
       </div>
 

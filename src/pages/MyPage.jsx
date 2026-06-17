@@ -26,9 +26,9 @@ const MOCK_FAVORITES = [
 
 const MENUS = [
   { icon: "/image/icon_reservation.svg", label: "예약 관리" },
-  { icon: "/image/icon_activity.svg",    label: "내 활동" },
-  { icon: "/image/icon_cs.svg",          label: "고객센터" },
-  { icon: "/image/icon_event.svg",       label: "이벤트" },
+  { icon: "/image/icon_activity.svg", label: "내 활동" },
+  { icon: "/image/icon_cs.svg", label: "고객센터" },
+  { icon: "/image/icon_event.svg", label: "이벤트" },
 ];
 
 const MyPage = () => {
@@ -40,36 +40,55 @@ const MyPage = () => {
   return (
     <div className="mypage-page">
       <div className="mypage-body">
-
-        {/* 프로필 영역 */}
         <div className="mypage-profile">
-          <img src="/image/mypage_character.svg" alt="캐릭터" className="mypage-character" />
+          <img
+            src="/image/mypage_character.svg"
+            alt="캐릭터"
+            className="mypage-character"
+          />
           <div className="mypage-info">
-            <p className="mypage-name"><strong>{user.name}</strong>님</p>
+            <p className="mypage-name">
+              <strong>{user.name}</strong>님
+            </p>
             <p className="mypage-desc">오늘도 맛있는 혼밥 하세요!</p>
             <p className="mypage-level">
-              혼밥 레벨 <span className="mypage-level-num">Lv.{user.level}</span>{" "}
+              혼밥 레벨{" "}
+              <span className="mypage-level-num">Lv.{user.level}</span>{" "}
               {LEVEL_LABELS[user.level]}
             </p>
           </div>
         </div>
 
-        {/* 4개 메뉴 */}
         <div className="mypage-menus">
           {MENUS.map((m, i) => (
-            <button key={i} className="mypage-menu-item" onClick={() => alert(`${m.label} 준비 중`)}>
-              <img src={m.icon} alt={m.label} className="mypage-menu-icon" />
+            <button
+              key={i}
+              className="mypage-menu-item"
+              onClick={() => alert(`${m.label} 준비 중`)}
+            >
+              <img
+                key={i}
+                src={m.icon}
+                alt={m.label}
+                className={`mypage-menu-icon ${m.className || ""}`}
+              />
               <span className="mypage-menu-label">{m.label}</span>
             </button>
           ))}
         </div>
 
-        {/* 단골가게 박스 */}
         <div className="mypage-fav-box">
           <div className="mypage-fav-header">
             <span className="mypage-fav-title">단골가게</span>
-            <button className="mypage-fav-add" onClick={() => alert("단골가게 추가 준비 중")}>
-              <img src="/image/icon_plus.svg" alt="추가" className="mypage-fav-plus-icon" />
+            <button
+              className="mypage-fav-add"
+              onClick={() => navigate("/questionlist")}
+            >
+              <img
+                src="/image/icon_plus.svg"
+                alt="추가"
+                className="mypage-fav-plus-icon"
+              />
             </button>
           </div>
           <div className="mypage-fav-divider" />
@@ -77,10 +96,19 @@ const MyPage = () => {
           {isEmpty ? (
             /* 비어있을 때 */
             <div className="mypage-empty">
-              <img src="/image/mypage_empty.svg" alt="" className="mypage-empty-img" />
+              <img
+                src="/image/mypage_empty.svg"
+                alt=""
+                className="mypage-empty-img"
+              />
               <p className="mypage-empty-text">아직 등록한 단골가게가 없어요</p>
-              <p className="mypage-empty-sub">자주 가는 혼밥 맛집을 추가해보세요!</p>
-              <button className="mypage-empty-btn" onClick={() => alert("단골가게 추가 준비 중")}>
+              <p className="mypage-empty-sub">
+                자주 가는 혼밥 맛집을 추가해보세요!
+              </p>
+              <button
+                className="mypage-empty-btn"
+                onClick={() => navigate("/questionlist")}
+              >
                 단골 가게 추가하기
               </button>
             </div>
@@ -89,14 +117,24 @@ const MyPage = () => {
             <div className="mypage-fav-list">
               {favorites.map((store) => (
                 <div key={store.id} className="mypage-store-item">
-                  <img src={store.image} alt={store.name} className="mypage-store-img" />
+                  <img
+                    src={store.image}
+                    alt={store.name}
+                    className="mypage-store-img"
+                  />
                   <div className="mypage-store-info">
-                    <span className="mypage-store-level">레벨 {store.level}</span>
+                    <span className="mypage-store-level">
+                      레벨 {store.level}
+                    </span>
                     <p className="mypage-store-name">{store.name}</p>
                     <p className="mypage-store-menu">🍽 {store.menu}</p>
-                    <p className="mypage-store-loc">{store.distance}　{store.area}</p>
+                    <p className="mypage-store-loc">
+                      {store.distance}　{store.area}
+                    </p>
                     <p className="mypage-store-tags">
-                      {store.tags.map((t, i) => <span key={i}># {t}　</span>)}
+                      {store.tags.map((t, i) => (
+                        <span key={i}># {t}　</span>
+                      ))}
                     </p>
                   </div>
                 </div>
@@ -104,7 +142,6 @@ const MyPage = () => {
             </div>
           )}
         </div>
-
       </div>
 
       <BottomNav />
