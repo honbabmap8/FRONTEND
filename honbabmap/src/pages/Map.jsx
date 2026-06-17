@@ -130,7 +130,6 @@ const Map = () => {
 
     return () => {
       isMounted = false;
-
     };
   }, []);
 
