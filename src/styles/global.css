@@ -8,20 +8,23 @@
   font-family: "Pretendard", sans-serif;
 }
 
+body {
+  min-height: 100vh;
+  background: #bdbdbd;
+}
+
+#root {
+  width: 100%;
+}
+
 .container {
   position: relative;
-
   width: 100%;
   max-width: 393px;
-
   height: 100dvh;
-
   margin: 0 auto;
-
   background-color: #f9f9f9;
-
   overflow: hidden;
-
   display: flex;
   flex-direction: column;
 }
