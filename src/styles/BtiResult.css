@@ -1,0 +1,314 @@
+/* BtiResult.css */
+
+.result-page {
+  position: relative;
+  width: 100%;
+  max-width: 393px;
+  height: 100dvh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #f5ede9;
+}
+
+/* ── 배경 ── */
+.result-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.result-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+/* 레벨별 배경색 */
+.result-bg--lv1 {
+  background: #fccba6;
+}
+.result-bg--lv2 {
+  background: #f0a070;
+}
+.result-bg--lv3 {
+  background: #c4623a;
+}
+.result-bg--lv4 {
+  background: #fccba6;
+}
+.result-bg--lv5 {
+  background: #fccba6;
+}
+
+/* 배경 텍스트 */
+.result-bg-text {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+.result-level-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+.result-badge {
+  background: #ea512d;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 3px 20px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+.result-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.result-subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* ── 흰 카드 — 양옆 여백 있게 ── */
+.result-card {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 50%;
+  z-index: 1;
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 18px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 당신의 혼밥 상태 */
+.result-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+  margin: 0;
+}
+
+/* 스텝 */
+.result-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.result-step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  position: relative;
+}
+
+.result-step-line {
+  position: absolute;
+  top: 12px;
+  right: 50%;
+  width: 100%;
+  height: 1.5px;
+  background: #ddd;
+  z-index: 0;
+}
+
+.result-step-line.past {
+  background: #bbb;
+}
+
+.result-step-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ddd;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.result-step-circle.active {
+  background: #ea512d;
+}
+.result-step-circle.past {
+  background: #bbb;
+}
+
+.result-step-label {
+  font-size: 9px;
+  color: #aaa;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.result-step-label.active {
+  color: #ea512d;
+  font-weight: 700;
+}
+
+/* 특징 박스 */
+.result-feature-box {
+  background: #faf6f3;
+  border-radius: 14px;
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result-feature-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+  margin: 0;
+}
+
+/* 제목 아래 구분선 */
+.result-feature-divider {
+  width: 100%;
+  height: 1px;
+  background: #e8ddd8;
+}
+
+.result-features {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.result-feature-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.result-feature-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.result-feature-text {
+  font-size: 10px;
+  color: #555;
+  text-align: center;
+  line-height: 1.4;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* 말풍선 — 더 둥글고 그림자 */
+.result-quote {
+  background: #fdf5f2;
+  border-radius: 20px;
+  border: 1.5px solid #f0d8d0;
+  box-shadow: 0 4px 12px rgba(234, 81, 45, 0.08);
+  padding: 10px 14px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.result-quote-mark {
+  font-size: 20px;
+  color: #ea512d;
+  font-weight: 900;
+  line-height: 1;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.result-quote-mark-end {
+  align-self: flex-end;
+}
+
+.result-quote-text {
+  flex: 1;
+  font-size: 12px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-line;
+  text-align: center;
+}
+
+.result-highlight {
+  color: #ea512d;
+  font-weight: 700;
+}
+
+/* 버튼 — 더 둥글고 그림자 */
+.result-btn {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-color: none;
+  border-radius: 24px;
+  background: #ea512d;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Pretendard", sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  box-shadow: 0 6px 16px rgba(234, 81, 45, 0.35);
+  margin-top: auto;
+}
+
+.result-btn:hover {
+  background: #c93e1e;
+}
+
+.result-btn-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
