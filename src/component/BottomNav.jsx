@@ -1,68 +1,77 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import "../styles/BottomNav.css";
 
-import Home from "../assets/home.png";
-import Map from "../assets/map.png";
-import Write from "../assets/write.png";
-import My from "../assets/my.png";
+import HomeIcon from "../assets/home.png";
+import MapIcon from "../assets/map.png";
+import WriteIcon from "../assets/write.png";
+import MyIcon from "../assets/my.png";
 
-const BottomNav = () => {
+const navItems = [
+  {
+    id: "home",
+    label: "\uD648",
+    path: "/home",
+    icon: HomeIcon,
+    iconClassName: "home-icon",
+  },
+  {
+    id: "map",
+    label: "\uC9C0\uB3C4 \uB808\uC774\uB354",
+    path: "/map",
+    icon: MapIcon,
+    iconClassName: "map-icon",
+  },
+  {
+    id: "write",
+    label: "\uB9DB\uC9D1 \uC81C\uBCF4",
+    path: "/questionlist",
+    icon: WriteIcon,
+    iconClassName: "write-icon",
+  },
+  {
+    id: "my",
+    label: "\uB9C8\uC774\uD398\uC774\uC9C0",
+    path: "/mypage",
+    icon: MyIcon,
+    iconClassName: "my-icon",
+  },
+];
+
+const pathToActive = {
+  "/": "map",
+  "/main": "home",
+  "/home": "home",
+  "/map": "map",
+  "/questionlist": "write",
+  "/mypage": "my",
+};
+
+const BottomNav = ({ activePage }) => {
   const navigate = useNavigate();
-
-  const [active, setActive] = useState("map");
-
-  const go = (page) => {
-    setActive(page);
-
-    if (page === "home") navigate("/main");
-    if (page === "map") navigate("/");
-    if (page === "write") navigate("/questionlist");
-    if (page === "my") navigate("/mypage");
-  };
+  const { pathname } = useLocation();
+  const active = activePage || pathToActive[pathname] || "home";
 
   return (
     <nav className="bottom-nav">
-      <div
-        className={`nav-item ${active === "home" ? "active" : ""}`}
-        onClick={() => go("home")}
-      >
-        <div className="icon-box">
-          <img src={Home} alt="home" className="home-icon" />
-        </div>
-        <span>홈</span>
-      </div>
-
-      <div
-        className={`nav-item ${active === "map" ? "active" : ""}`}
-        onClick={() => go("map")}
-      >
-        <div className="icon-box">
-          <img src={Map} alt="map" className="map-icon" />
-        </div>
-        <span>지도 레이더</span>
-      </div>
-
-      <div
-        className={`nav-item ${active === "write" ? "active" : ""}`}
-        onClick={() => go("write")}
-      >
-        <div className="icon-box">
-          <img src={Write} alt="write" className="write-icon" />
-        </div>
-        <span>맛집 제보</span>
-      </div>
-
-      <div
-        className={`nav-item ${active === "my" ? "active" : ""}`}
-        onClick={() => go("my")}
-      >
-        <div className="icon-box">
-          <img src={My} alt="my" className="my-icon" />
-        </div>
-        <span>마이페이지</span>
-      </div>
+      {navItems.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          className={`nav-item ${active === item.id ? "active" : ""}`}
+          onClick={() => navigate(item.path)}
+        >
+          <div className="icon-box">
+            <img
+              src={item.icon}
+              alt=""
+              className={item.iconClassName}
+              aria-hidden="true"
+            />
+          </div>
+          <span>{item.label}</span>
+        </button>
+      ))}
     </nav>
   );
 };

@@ -1,24 +1,16 @@
 .mapdetail {
   position: absolute;
   padding: 0 15px;
-
-  bottom: 100px; /* 네브바 위로 띄우기 */
+  bottom: 100px; 
   left: 50%;
-
   transform: translateX(-50%);
-
   width: 90%;
   max-width: 350px;
-
- min-height: 200px;   /* 최소만 보장 */
-  height: auto;        /* 내용 따라 증가 */
-
+  min-height: 200px;   
+  height: auto;       
   border-radius: 20px;
-
   background: #fff;
-
   z-index: 2;
-
   box-shadow:
   -3px -3px 5px rgba(0, 0, 0, 0.22),
   3px -3px 5px rgba(0, 0, 0, 0.18),
@@ -58,11 +50,13 @@
     margin: 7px auto;
     gap: 10px;
 }
-img{
-    height: 130px;
-    width: 125px;
-    border-radius: 20px;
+.storeimg {
+  height: 120px;
+  width: 115px;
+  border-radius: 20px;
 }
+
+
 #detailcontainer{
     padding: 0 10px;
     flex: 1;
@@ -73,9 +67,75 @@ img{
 }
 .mapdetailbottom{
     width: 100%;
+    height: 30px;
      display: flex;
     flex-direction: row;
    justify-content: space-between;
     align-items: center;
     margin: 7px auto;
+}
+.name{
+  font-size: 21px;
+  font-weight: 700;
+}
+.menuiconimage{
+    height: 12px;
+    width: 12px;
+}
+.menulist{
+  display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap:3px;
+}
+.menudetail{
+  font-size: 11px;
+  font-weight: 600;
+}
+.desc{
+  font-size: 12px;
+  color: #757575;
+  font-weight: 600;
+}
+.feature-list {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  margin-top: 4px;
+  background: #FDF5EC;
+  height: 40px;
+  padding: 10px;
+}
+.feature1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.feature-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.feature-break {
+  display: block;
+  width: 1.5px;
+  height: 20px;
+  margin: 0 6px;
+  background-color: #e0d4c8;
+}
+.where{
+  color: #ADADAD;
+    font-size: 12px;
+    font-weight: 700;
+
+}
+.lookdetail{
+  color: #F4A152;
+  font-size: 12px;
 }

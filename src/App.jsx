@@ -1,15 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import "./App.css";
 
 import { RegisterProvider } from "./context/RegisterContext";
 
-import Map from "./pages/Map";
+import BtiResult from "./pages/BtiResult";
+import EatBTI from "./pages/EatBTI";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Map from "./pages/Map";
+import MyPage from "./pages/MyPage";
 import RegisterStep1 from "./pages/RegisterStep1";
 import RegisterStep2 from "./pages/RegisterStep2";
-import EatBTI from "./pages/EatBTI";
-import BtiResult from "./pages/BtiResult";
-import MyPage from "./pages/MyPage";
+import Result from "./pages/Result";
 import Review from "./pages/Review";
 
 function App() {
@@ -18,6 +21,10 @@ function App() {
       <RegisterProvider>
         <Routes>
           <Route path="/" element={<Map />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/main" element={<Home />} />
+          <Route path="/result" element={<Result />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterStep1 />} />
           <Route path="/register/step2" element={<RegisterStep2 />} />
