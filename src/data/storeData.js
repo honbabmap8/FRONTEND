@@ -38,7 +38,7 @@ export const storeData = [
           },
           {
             tagId: 3,
-            tagName: "혼밥 추천",
+            tagName: "웨이팅 적음",
           },
         ],
       },
@@ -77,8 +77,8 @@ export const storeData = [
             tagName: "빠른 식사",
           },
           {
-            tagId: 5,
-            tagName: "따뜻한 메뉴",
+            tagId: 3,
+            tagName: "웨이팅 적음",
           },
         ],
       },
@@ -109,16 +109,16 @@ export const storeData = [
         ],
         restReviewTagList: [
           {
-            tagId: 6,
-            tagName: "든든함",
+            tagId: 1,
+            tagName: "가성비",
           },
           {
             tagId: 2,
             tagName: "빠른 식사",
           },
           {
-            tagId: 4,
-            tagName: "점심 추천",
+            tagId: 3,
+            tagName: "웨이팅 적음",
           },
         ],
       },
@@ -149,16 +149,16 @@ export const storeData = [
         ],
         restReviewTagList: [
           {
-            tagId: 7,
-            tagName: "건강식",
+            tagId: 1,
+            tagName: "가성비",
           },
           {
-            tagId: 5,
-            tagName: "혼밥 추천",
+            tagId: 3,
+            tagName: "웨이팅 적음",
           },
           {
-            tagId: 8,
-            tagName: "깔끔함",
+            tagId: 4,
+            tagName: "야식 가능",
           },
         ],
       },
@@ -193,12 +193,12 @@ export const storeData = [
             tagName: "가성비",
           },
           {
-            tagId: 3,
-            tagName: "한식 가능",
+            tagId: 2,
+            tagName: "빠른 식사",
           },
           {
-            tagId: 5,
-            tagName: "혼밥 추천",
+            tagId: 3,
+            tagName: "웨이팅 적음",
           },
         ],
       },

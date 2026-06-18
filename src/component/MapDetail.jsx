@@ -1,13 +1,31 @@
 import { Fragment } from "react";
 import "../styles/MapDetail.css";
-import Menu from "../assets/menuIcon.svg";
+import Menu from "../assets/menuimg.svg";
 import Eximg from "../assets/eximg1.jpg";
 import Singlemenu from "../assets/singlemenu.svg";
 import Table from "../assets/table.svg";
+import locationIcon from "../assets/locationicon.svg";
 
 const featureIconMap = {
   1: Table,
   2: Singlemenu,
+};
+
+const getTagIcon = (tagName = "") => {
+  if (tagName.includes("가성비")) return "/image/cheap.svg";
+  if (tagName.includes("빠른") || tagName.includes("회전")) return "/image/fast.svg";
+  if (
+    tagName.includes("야식") ||
+    tagName.includes("늦") ||
+    tagName.includes("24시간")
+  ) {
+    return "/image/night.svg";
+  }
+  if (tagName.includes("웨이팅") || tagName.includes("대기")) {
+    return "/image/waiting.svg";
+  }
+
+  return null;
 };
 
 function MapDetail({ store }) {
@@ -17,6 +35,7 @@ function MapDetail({ store }) {
   const features = restaurant.restFeatureList ?? [];
   const tags = restaurant.restReviewTagList ?? [];
   const location = restaurant.locationInfo;
+  const soloLevel = Math.min(Math.max(Number(restaurant.restSoloLevel) || 1, 1), 5);
 
   return (
     <div className="mapdetail">
@@ -33,7 +52,11 @@ function MapDetail({ store }) {
         />
 
         <div id="detailcontainer">
-          <p className="level">레벨 {restaurant.restSoloLevel}</p>
+          <img
+            className="level"
+            src={`/image/level_${soloLevel}.svg`}
+            alt={`레벨 ${soloLevel}`}
+          />
           <h3 className="name">{restaurant.name}</h3>
 
           <div className="menulist">
@@ -71,19 +94,36 @@ function MapDetail({ store }) {
       </div>
 
       <div className="mapdetailbtns">
-        {tags.map((tag) => (
-          <button key={tag.tagId} type="button">
-            {tag.tagName}
-          </button>
-        ))}
+        {tags.map((tag) => {
+          const tagIcon = getTagIcon(tag.tagName);
+
+          return (
+            <button
+              key={tag.tagId}
+              type="button"
+              className={`tag-btn ${tagIcon ? "tag-btn--icon" : ""}`}
+              aria-label={tag.tagName}
+            >
+              {tagIcon ? (
+                <img className="tag-icon" src={tagIcon} alt="" aria-hidden="true" />
+              ) : (
+                tag.tagName
+              )}
+            </button>
+          );
+        })}
       </div>
 
       <hr id="hr2" />
 
       <div className="mapdetailbottom">
+        <div className="location-info">
+        <img src={locationIcon} alt="위치 아이콘" className="location-icon" />
         <p className="where">
-          📍 {location?.stationName} {location?.distance}m · 도보 {location?.time}분
+           {location?.stationName} {location?.distance}m · 도보 {location?.time}분
         </p>
+        </div>
+        
         <p className="lookdetail">자세히 보기 </p>
       </div>
     </div>

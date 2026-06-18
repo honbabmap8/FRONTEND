@@ -3,11 +3,13 @@ import HomeImg from "../assets/hometopimg.png";
 import Click from "../assets/click.svg";
 import HomeDetail from "../component/HomeDetail";
 import { storeData } from "../data/storeData";
+import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 
 const stores = storeData.flatMap((response) => response.data ?? [response]);
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div className="container">
       <div className="top">
@@ -29,10 +31,10 @@ function Home() {
             <p id="contentsp">안녕하세요 님<br />혼밥 식당 추천해드려요</p>
           </div>
 
-          <button>
-            <img id="clickimg" src={Click} alt="" />
-            <p id="clickp">오늘 혼밥 뭐 먹을까요?</p>
-          </button>
+           <button onClick={() => navigate("/map")}>
+      <img id="clickimg" src={Click} alt="" />
+      <p id="clickp">오늘 혼밥 뭐 먹을까요?</p>
+    </button>
         </div>
       </div>
 

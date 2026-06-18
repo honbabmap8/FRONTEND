@@ -36,17 +36,75 @@
   color: #909090;
 }
 
+.station-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.28);
+}
 
-
+.station-modal {
+  width: 100%;
+  max-width: 300px;
+  padding: 24px 20px 18px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
 .header {
   width: 100%;
   height: 72px;
-
   flex-shrink: 0;
-
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding: 10px 0 0 20px;
+}
+.header-title {
+  margin: 0;
+  color: #111;
+  font-size: 20px;
+font-weight: 600;
+  line-height: 1.45;
+  text-align: center;
+  letter-spacing: 0;
+}
+.back-button {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+} 
+
+.station-modal-title {
+  margin: 0;
+  color: #111;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.station-modal-button {
+  width: 100%;
+  height: 42px;
+  border: none;
+  border-radius: 999px;
+  background: #e6725b;
+  color: #fff;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 
@@ -118,13 +176,27 @@
 .radar-rings {
   width: 100%;
   height: 100%;
-  border: 2px solid rgba(255, 72, 0, 0.72);
+  border: 1px solid #FF4137;
   border-radius: 50%;
   background:
-    radial-gradient(circle, transparent 0 19%, rgba(255, 72, 0, 0.58) 20%, transparent 21%),
-    radial-gradient(circle, transparent 0 39%, rgba(255, 72, 0, 0.5) 40%, transparent 41%),
-    radial-gradient(circle, transparent 0 59%, rgba(255, 72, 0, 0.42) 60%, transparent 61%),
-    radial-gradient(circle, transparent 0 79%, rgba(255, 72, 0, 0.36) 80%, transparent 81%);
+    radial-gradient(circle, transparent 19%, #FF4137 20%, transparent 0%),
+    radial-gradient(circle, transparent 0 31%, #FF4137 32%, transparent 0%),
+    radial-gradient(circle, transparent 0 39%, #FF4137 40%, transparent 0%),
+
+    radial-gradient(circle, transparent 0 56%, #FF4137 57%, transparent 0%),
+    radial-gradient(circle, transparent 0 79%, #FF4137 80%, transparent 0%);
+}
+.current-level {
+  position: absolute;
+  top: 140px;
+  right: 10px;
+  z-index: 3;
+  height: 32px;
+}
+.current-level img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
 }
 
 .radar-sweep {
@@ -132,14 +204,15 @@
   height: 100%;
   border-radius: 50%;
   background: conic-gradient(
-    from 18deg,
-    rgba(255, 72, 0, 0.7) 0deg,
-    rgba(255, 72, 0, 0.38) 42deg,
-    rgba(255, 72, 0, 0) 82deg,
-    rgba(255, 72, 0, 0) 360deg
-  );
+  from 18deg,
+  rgba(255, 196, 196, 0.5) 0deg,
+  rgba(255, 120, 120, 0.45) 45deg,
+  rgba(255, 13, 0, 0.3) 95deg,
+  rgba(255, 13, 0, 0) 115deg,
+  rgba(255, 13, 0, 0) 360deg
+);
   animation: radarSpin 2.2s linear infinite;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 @keyframes radarSpin {

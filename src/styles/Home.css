@@ -11,8 +11,8 @@
   object-fit: cover;
 }
 #clickimg{
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     margin-right: 10px;
 }
 #clickp{
@@ -45,7 +45,7 @@
   top: 0;
   left: 0;
   z-index: 2;
-  padding: 29px 28px ;
+  padding: 20px 28px ;
   width: 100%;
     height: 300px;
 
@@ -73,14 +73,15 @@
     align-self: center;
     border-radius: 9px;
     border: none;
-height: 41px;
-display: flex;
-flex-direction: row;
-justify-content: flex-start;
-align-items: center;
-padding-left: 20px;
-background-color: #ffffff;
-box-shadow: 0 8px 18px rgba(230, 114, 91, 0.32);
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 15px rgba(230, 114, 91, 0.32);
+    cursor: pointer;
 }
 
 
@@ -95,6 +96,7 @@ box-shadow: 0 8px 18px rgba(230, 114, 91, 0.32);
       display: flex;
       justify-content: space-between;
       padding: 20px 35px;
+      background: #ffffff;
 }
 
 .middlebtn button{
@@ -120,27 +122,36 @@ box-shadow: 0 8px 18px rgba(230, 114, 91, 0.32);
   flex: 1;
   min-height: 0;
   padding: 0 0 90px 0;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
   scrollbar-width: thin;
-  scrollbar-color: #e6725b #f3f3f3;
+  scrollbar-color: #d6d6d6 #ffffff;
 }
 
 .contentlist::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+}
+
+.contentlist::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .contentlist::-webkit-scrollbar-track {
-  background: #f3f3f3;
+  background: #ffffff;
 }
 
 .contentlist::-webkit-scrollbar-thumb {
-  background: #e6725b;
+  background: #d6d6d6;
+  border: 2px solid #ffffff;
   border-radius: 999px;
 }
 
 .contentlist::-webkit-scrollbar-thumb:hover {
-  background: #cf5f4b;
+  background: #c4c4c4;
 }
