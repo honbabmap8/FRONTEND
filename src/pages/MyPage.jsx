@@ -22,6 +22,36 @@ const LEVEL_LABELS = {
 const MOCK_FAVORITES = [
   // 비어있으면 왼쪽 화면, 채우면 오른쪽 화면
   // { id: 1, name: "온돈 카츠", menu: "1인 짜장면, 탕수육 세트", distance: "1.9 KM", area: "삼각지역", level: 1, tags: ["혼밥 맛집", "가성비 맛집", "웨이팅 적음"], image: "/image/store1.jpg" },
+  {
+    id: 1,
+    name: "101번지남산돈까스 삼각지점",
+    menu: "돈까스누들맵떡, 남산치킨까스",
+    distance: "47",
+    area: "삼각지역",
+    level: 2,
+    tags: ["혼밥 만족도 높음", "1인 메뉴 가능"],
+    image: "/image/store1.png",
+  },
+  {
+    id: 2,
+    name: "부국정",
+    menu: "양곰탕, 한우육회비빔밥",
+    distance: "110",
+    area: "삼각지역",
+    level: 3,
+    tags: ["1인석 있음", "조용한 분위기"],
+    image: "/image/store2.jpeg",
+  },
+  {
+    id: 3,
+    name: "마토미",
+    menu: "수아데로 타코, 트리파스 타코",
+    distance: "190",
+    area: "삼각지역",
+    level: 5,
+    tags: ["1인 메뉴 가능", "조용한 분위기"],
+    image: "/image/store3.jpeg",
+  },
 ];
 
 const MENUS = [
@@ -129,7 +159,7 @@ const MyPage = () => {
                     <p className="mypage-store-name">{store.name}</p>
                     <p className="mypage-store-menu">🍽 {store.menu}</p>
                     <p className="mypage-store-loc">
-                      {store.distance}　{store.area}
+                      {store.distance}m　{store.area}
                     </p>
                     <p className="mypage-store-tags">
                       {store.tags.map((t, i) => (

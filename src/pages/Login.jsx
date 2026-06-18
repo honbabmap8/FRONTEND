@@ -31,9 +31,9 @@ const Login = () => {
       <div className="login-body">
         <div className="login-logo-wrap">
           <img
-            src="../../image/logo.svg"
-            alt="로고"
-            className="login-logo"
+            src="../../image/logo1.svg"
+            alt="캐릭터 로고"
+            className="login-character-img"
             onError={(e) => {
               e.currentTarget.style.display = "none";
             }}
@@ -41,7 +41,16 @@ const Login = () => {
           <div className="login-logo-placeholder">로고</div>
         </div>
 
-        <p className="login-app-name">어플명적고</p>
+        <div className="login-app-name">
+          <img
+            src="../../image/logo_name.svg"
+            alt="잇비티아이"
+            className="login-title-img"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        </div>
 
         <div className="login-form">
           <input
