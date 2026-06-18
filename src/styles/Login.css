@@ -40,23 +40,30 @@
 }
 
 /* 로고 */
+.login-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 32px 40px;
+}
+
+/* 상단 캐릭터 로고 */
 .login-logo-wrap {
   width: 140px;
   height: 140px;
-  border-radius: 50%;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 12px;
-  background: #f5ede9;
   position: relative;
 }
 
-.login-logo {
+.login-character-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .login-logo-placeholder {
@@ -66,21 +73,29 @@
   font-weight: 500;
 }
 
-.login-logo-wrap:has(img[style*="display: none"]) .login-logo-placeholder,
-.login-logo-wrap .login-logo-placeholder {
+.login-logo-wrap:has(img[style*="display: none"]) .login-logo-placeholder {
   display: flex;
 }
-
 .login-logo-wrap:has(img:not([style*="display: none"]))
   .login-logo-placeholder {
   display: none;
 }
 
+/* 하단 서비스명 타이틀 */
 .login-app-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 32px;
+  width: 120px;
+  height: 40px;
+  margin-top: -20px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-title-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* 폼 */
@@ -122,7 +137,8 @@
   cursor: pointer;
   font-size: 14px;
   color: #333;
-  margin: 4px 0;
+  margin-top: 2px;
+  margin-bottom: 15px;
   user-select: none;
 }
 

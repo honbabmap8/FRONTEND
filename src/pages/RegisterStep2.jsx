@@ -57,8 +57,17 @@ const RegisterStep2 = () => {
 
       <div className="reg-body">
         <h2 className="reg-welcome">
-          ~~~~~~~에 오신 걸<br />
-          환영합니다!
+          <img
+            src="../../image/logo_name.svg"
+            alt="로고"
+            className="login-logo"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+          <span>에 오신 걸</span>
+          <br />
+          <span>환영합니다!</span>
         </h2>
 
         <div className="reg-steps">
@@ -111,7 +120,7 @@ const RegisterStep2 = () => {
           </div>
 
           <div className="form-row">
-            <label className="form-label">비밀번호 확인</label>
+            <label className="form-label confirm">비밀번호 확인</label>
             <div className="form-input-wrap">
               <input
                 type="password"
