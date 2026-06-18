@@ -4,6 +4,9 @@ import { storeData } from "../data/storeData";
 import MapDetail from "../component/MapDetail";
 import BottomNav from "../component/BottomNav";
 import Marker from "../assets/marker.svg";
+import Arrow2 from "../assets/arrow2.svg";
+import { useNavigate } from "react-router-dom";
+import NowLevel from "../assets/nowlevel.svg";
 
 const STORE_COORDINATES = {
   1: { lat: 37.58653, lng: 127.02918 },
@@ -20,6 +23,7 @@ const stores = storeData.flatMap((response) => response.data ?? [response]);
 const Map = () => {
   const mapRef = useRef(null);
   const [selectedStore, setSelectedStore] = useState(null);
+  const [isStationModalOpen, setIsStationModalOpen] = useState(false);
 
   useEffect(() => {
     if (!window.kakao || !mapRef.current) return undefined;
@@ -39,14 +43,17 @@ const Map = () => {
         level: 3,
       });
 
-      const normalImage = new window.kakao.maps.MarkerImage(
-        Marker,
-        new window.kakao.maps.Size(30, 30)
-      );
-      const bigImage = new window.kakao.maps.MarkerImage(
-        Marker,
-        new window.kakao.maps.Size(50, 50)
-      );
+      const createMarkerImage = (size) =>
+        new window.kakao.maps.MarkerImage(
+          Marker,
+          new window.kakao.maps.Size(size, size),
+          {
+            offset: new window.kakao.maps.Point(size / 2, size),
+          }
+        );
+
+      const normalImage = createMarkerImage(30);
+      const bigImage = createMarkerImage(50);
       const markerItems = [];
 
       const radarOverlay = new window.kakao.maps.CustomOverlay({
@@ -132,20 +139,55 @@ const Map = () => {
       isMounted = false;
     };
   }, []);
+  const navigate = useNavigate();
 
   return (
     <div className="container">
       <header className="header">
-        <p>혼밥맵</p>
+        <img src={Arrow2} alt="뒤로 가기" className="back-button" onClick={() => navigate("/Home")} />
+        <p className="header-title">탐색 결과</p>
       </header>
 
       <div className="search-wrap">
         <input
           type="text"
           className="search-input"
-          placeholder="원하는 메뉴를 검색해보세요"
+          placeholder="원하시는 역을 검색해주세요"
+          readOnly
+          onClick={() => setIsStationModalOpen(true)}
+          onFocus={() => setIsStationModalOpen(true)}
         />
       </div>
+      <div className="current-level">
+        <img src={NowLevel} alt="현재 레벨" />
+      </div>
+
+      {isStationModalOpen && (
+        <div
+          className="station-modal-backdrop"
+          role="presentation"
+          onClick={() => setIsStationModalOpen(false)}
+        >
+          <div
+            className="station-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="station-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p id="station-modal-title" className="station-modal-title">
+              아직 다른 역의 데이터가 <br /> 준비되지 않았습니다
+            </p>
+            <button
+              type="button"
+              className="station-modal-button"
+              onClick={() => setIsStationModalOpen(false)}
+            >
+              확인
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="content">
         <div ref={mapRef} className="map" />

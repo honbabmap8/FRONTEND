@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/BtiResult.css";
 
-const LEVELS = {
+export const LEVELS = {
   1: {
     badge: "LEVEL 1",
     title: "혼밥 초보자",
@@ -79,7 +79,7 @@ const LEVELS = {
   },
 };
 
-const STEP_LABELS = ["초보자", "익숙해지는 중", "즐기는 편", "고수", "미스터"];
+export const STEP_LABELS = ["초보자", "익숙해지는 중", "즐기는 편", "고수", "미스터"];
 
 const BtiResult = () => {
   const { level } = useParams();

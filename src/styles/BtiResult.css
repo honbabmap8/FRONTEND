@@ -97,19 +97,25 @@
 /* ── 흰 카드 — 양옆 여백 있게 ── */
 .result-card {
   position: absolute;
-  left: 14px;
-  right: 14px;
-  top: 50%;
+  left: 26px;
+  right: 26px;
+  bottom: 0;
   z-index: 1;
   background: #fff;
-  border-radius: 24px;
+  border-radius: 24px 24px 0 0 ;
   overflow: hidden;
-  padding: 18px 16px 14px;
+  padding: 16px 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
   box-sizing: border-box;
   box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.08);
+}
+
+.result-card > * {
+  width: 100%;
 }
 
 /* 당신의 혼밥 상태 */
@@ -126,6 +132,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  max-width: 300px;
 }
 
 .result-step-item {
@@ -189,11 +196,13 @@
 /* 특징 박스 */
 .result-feature-box {
   background: #faf6f3;
-  border-radius: 14px;
-  padding: 10px 12px 12px;
+  border-radius: 13px;
+  padding: 9px 10px 11px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
+  max-width: 292px;
 }
 
 .result-feature-title {
@@ -213,7 +222,7 @@
 
 .result-features {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 6px;
 }
 
@@ -226,8 +235,8 @@
 }
 
 .result-feature-img {
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
 }
 
@@ -243,13 +252,15 @@
 /* 말풍선 — 더 둥글고 그림자 */
 .result-quote {
   background: #fdf5f2;
-  border-radius: 20px;
+  border-radius: 16px;
   border: 1.5px solid #f0d8d0;
   box-shadow: 0 4px 12px rgba(234, 81, 45, 0.08);
-  padding: 10px 14px;
+  padding: 9px 12px;
   display: flex;
   gap: 6px;
   align-items: center;
+  justify-content: center;
+  max-width: 292px;
 }
 
 .result-quote-mark {
@@ -283,7 +294,8 @@
 /* 버튼 — 더 둥글고 그림자 */
 .result-btn {
   width: 100%;
-  height: 48px;
+  max-width: 292px;
+  height: 46px;
   border: none;
   border-color: none;
   border-radius: 24px;

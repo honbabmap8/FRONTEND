@@ -8,7 +8,6 @@
     align-items: stretch;
     gap: 15px;
     padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
 }
 .home-detail-content{
     flex: 1;
@@ -21,13 +20,16 @@
     height: 135px;
     width: 120px;
     object-fit: cover;
-    border-radius: 8px;
 }
 .restaurant-name{
     font-size: 22px;
     font-weight: 700;
     line-height: 1.2;
-
+}
+.restaurant-level {
+    width: 58px;
+    height: auto;
+    object-fit: contain;
 }
 .menu-section{
     display: flex;
@@ -68,7 +70,7 @@ justify-content: flex-start;
 .tag-item{
     font-size: 13px;
     font-weight: 600;
-letter-spacing: 0;
+letter-spacing: 0.05em;
     white-space: nowrap;
 }
 .location-text{
