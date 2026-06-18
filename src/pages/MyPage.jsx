@@ -112,7 +112,7 @@ const MyPage = () => {
             <span className="mypage-fav-title">단골가게</span>
             <button
               className="mypage-fav-add"
-              onClick={() => navigate("/questionlist")}
+              onClick={() => navigate("/review")}
             >
               <img
                 src="/image/icon_plus.svg"
@@ -137,7 +137,7 @@ const MyPage = () => {
               </p>
               <button
                 className="mypage-empty-btn"
-                onClick={() => navigate("/questionlist")}
+                onClick={() => navigate("/review")}
               >
                 단골 가게 추가하기
               </button>

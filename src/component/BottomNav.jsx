@@ -25,7 +25,7 @@ const navItems = [
   {
     id: "write",
     label: "\uB9DB\uC9D1 \uC81C\uBCF4",
-    path: "/questionlist",
+    path: "/review",
     icon: WriteIcon,
     iconClassName: "write-icon",
   },
@@ -43,7 +43,7 @@ const pathToActive = {
   "/main": "home",
   "/home": "home",
   "/map": "map",
-  "/questionlist": "write",
+  "/review": "write",
   "/mypage": "my",
 };
 
