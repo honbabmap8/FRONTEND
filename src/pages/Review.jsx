@@ -5,49 +5,94 @@ import BottomNav from "../component/BottomNav";
 
 const KEYWORDS = {
   "혼밥 정도": [
-    "🪑 혼자 앉기 편해요",
-    "😵‍💫 눈치 안 보여요",
-    "🌙 늦게까지 해요",
-    "☝️ 조용해서 좋아요",
-    "🍴 회전이 빨라요",
-    "📍 식탁 간격이 넓어요",
+    { id: 1, label: "🪑 혼자 앉기 편해요" },
+    { id: 2, label: "😵‍💫 눈치 안 보여요" },
+    { id: 3, label: "🌙 늦게까지 해요" },
+    { id: 4, label: "☝️ 조용해서 좋아요" },
+    { id: 5, label: "🍴 회전이 빨라요" },
+    { id: 6, label: "📍 식탁 간격이 넓어요" },
   ],
   "메뉴 / 서비스": [
-    "🍱 메뉴가 다양해요",
-    "💰 가성비가 좋아요",
-    "🏃‍♀️ 포장도 가능해요",
-    "🍽️ 1인 메뉴가 있어요",
-    "🥣 양이 적당해요",
-    "🧍‍♀️ 웨이팅이 없어요",
+    { id: 7, label: "🍱 메뉴가 다양해요" },
+    { id: 8, label: "💰 가성비가 좋아요" },
+    { id: 9, label: "🏃‍♀️ 포장도 가능해요" },
+    { id: 10, label: "🍽️ 1인 메뉴가 있어요" },
+    { id: 11, label: "🥣 양이 적당해요" },
+    { id: 12, label: "🧍‍♀️ 웨이팅이 없어요" },
   ],
 };
 
-const Review = () => {
+const Review = ({ authToken, defaultRestaurantId }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const store = location.state?.store || {
+    restaurantId: defaultRestaurantId,
     name: "콘콘",
     date: "2026. 05. 23 (일)",
     visitCount: 3,
   };
+  const restaurantId = store.restaurantId ?? defaultRestaurantId;
 
   const [liked, setLiked] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const toggleKeyword = (kw) => {
-    setSelected((prev) =>
-      prev.includes(kw)
-        ? prev.filter((k) => k !== kw)
+  const toggleKeyword = (tagId) => {
+    setSelected((prev) => {
+      const next = prev.includes(tagId)
+        ? prev.filter((id) => id !== tagId)
         : prev.length < 5
-          ? [...prev, kw]
-          : prev,
-    );
+          ? [...prev, tagId]
+          : prev;
+
+      console.log("[Review] selectedTagsArray:", next);
+      return next;
+    });
   };
 
-  const handleSubmit = () => {
-    alert("리뷰 제출됨 (API 연동 예정)");
-    navigate(-1);
+  const handleSubmit = async () => {
+    if (selected.length === 0 || isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const url = `/api/restaurants/${restaurantId}/reviews`;
+      const payload = {
+        selectedTagsArray: selected,
+      };
+
+      console.log("[Review] POST", url);
+      console.log("[Review] request body:", payload);
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          accept: "*/*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("[Review] response status:", response.status);
+        console.error("[Review] response body:", errorText);
+        throw new Error("리뷰 등록에 실패했습니다.");
+      }
+
+      const responseText = await response.text();
+      console.log("[Review] response status:", response.status);
+      console.log("[Review] response body:", responseText);
+
+      alert("리뷰가 등록되었습니다.");
+      navigate(-1);
+    } catch (error) {
+      alert(error.message || "리뷰 등록 중 오류가 발생했습니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -97,11 +142,11 @@ const Review = () => {
                 <div className="review-keyword-list">
                   {kws.map((kw) => (
                     <button
-                      key={kw}
-                      className={`review-keyword-chip ${selected.includes(kw) ? "active" : ""}`}
-                      onClick={() => toggleKeyword(kw)}
+                      key={kw.id}
+                      className={`review-keyword-chip ${selected.includes(kw.id) ? "active" : ""}`}
+                      onClick={() => toggleKeyword(kw.id)}
                     >
-                      {kw}
+                      {kw.label}
                     </button>
                   ))}
                 </div>
@@ -112,10 +157,10 @@ const Review = () => {
 
         <button
           className={`review-submit ${selected.length > 0 ? "enabled" : ""}`}
-          disabled={selected.length === 0}
+          disabled={selected.length === 0 || isSubmitting}
           onClick={handleSubmit}
         >
-          리뷰 등록
+          {isSubmitting ? "등록 중..." : "리뷰 등록"}
         </button>
       </div>
 

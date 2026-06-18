@@ -15,23 +15,46 @@ import RegisterStep2 from "./pages/RegisterStep2";
 import Result from "./pages/Result";
 import Review from "./pages/Review";
 
+const appConfig = {
+  authToken:
+    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb29vIiwiaWF0IjoxNzgxNzgwNzEwLCJleHAiOjE3ODE3ODQzMTB9.XHu5SiI7VzkCFBJCuMefqxNuk1fCFDhAY27CqgMJcps",
+  defaultRestaurantId: 1,
+};
+
 function App() {
   return (
     <BrowserRouter>
       <RegisterProvider>
         <Routes>
-          <Route path="/" element={<Map />} />
-          <Route path="/map" element={<Map />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/main" element={<Home />} />
-          <Route path="/result" element={<Result />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<RegisterStep1 />} />
-          <Route path="/register/step2" element={<RegisterStep2 />} />
-          <Route path="/register/eatbti" element={<EatBTI />} />
-          <Route path="/bti/result/:level" element={<BtiResult />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/questionlist" element={<Review />} />
+          <Route path="/" element={<Map authToken={appConfig.authToken} />} />
+          <Route path="/map" element={<Map authToken={appConfig.authToken} />} />
+          <Route path="/home" element={<Home authToken={appConfig.authToken} />} />
+          <Route path="/main" element={<Home authToken={appConfig.authToken} />} />
+          <Route path="/result" element={<Result authToken={appConfig.authToken} />} />
+          <Route path="/login" element={<Login authToken={appConfig.authToken} />} />
+          <Route path="/register" element={<RegisterStep1 authToken={appConfig.authToken} />} />
+          <Route
+            path="/register/step2"
+            element={<RegisterStep2 authToken={appConfig.authToken} />}
+          />
+          <Route
+            path="/register/eatbti"
+            element={<EatBTI authToken={appConfig.authToken} />}
+          />
+          <Route
+            path="/bti/result/:level"
+            element={<BtiResult authToken={appConfig.authToken} />}
+          />
+          <Route path="/mypage" element={<MyPage authToken={appConfig.authToken} />} />
+          <Route
+            path="/review"
+            element={
+              <Review
+                authToken={appConfig.authToken}
+                defaultRestaurantId={appConfig.defaultRestaurantId}
+              />
+            }
+          />
         </Routes>
       </RegisterProvider>
     </BrowserRouter>
