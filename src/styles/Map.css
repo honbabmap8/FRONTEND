@@ -110,12 +110,92 @@ font-weight: 600;
 
 
 .content {
+  position: relative;
   flex: 1;
 
   padding: 0;
 
   display: flex;
   flex-direction: column;
+}
+
+.coordinate-editor {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 5;
+  width: min(320px, calc(100% - 16px));
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: "Pretendard", sans-serif;
+}
+
+.coordinate-editor-row,
+.coordinate-editor-grid {
+  display: flex;
+  gap: 6px;
+}
+
+.coordinate-editor-grid label,
+.coordinate-step {
+  min-width: 0;
+  flex: 1;
+  color: #666;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.coordinate-editor-select,
+.coordinate-editor input,
+.coordinate-editor button {
+  height: 28px;
+  border: 1px solid #e2e2e2;
+  border-radius: 6px;
+  background: #fff;
+  color: #111;
+  font-family: inherit;
+  font-size: 11px;
+}
+
+.coordinate-editor-select {
+  min-width: 0;
+  flex: 1;
+  padding: 0 7px;
+}
+
+.coordinate-editor input {
+  width: 100%;
+  padding: 0 6px;
+  box-sizing: border-box;
+}
+
+.coordinate-editor button {
+  flex: 0 0 auto;
+  padding: 0 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.coordinate-nudge {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 28px);
+  gap: 4px;
+}
+
+.coordinate-nudge button {
+  width: 28px;
+  padding: 0;
+}
+
+.coordinate-reset-all {
+  width: 100%;
+  color: #e6725b !important;
 }
 
 

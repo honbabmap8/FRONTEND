@@ -17,7 +17,7 @@ import Review from "./pages/Review";
 
 const appConfig = {
   authToken:
-    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb29vIiwiaWF0IjoxNzgxNzgwNzEwLCJleHAiOjE3ODE3ODQzMTB9.XHu5SiI7VzkCFBJCuMefqxNuk1fCFDhAY27CqgMJcps",
+    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkb28iLCJpYXQiOjE3ODE4Njk0NjIsImV4cCI6MTc4MTg3MzA2Mn0.s6K0hi2R4e2FLWoL-kDeY_J_GBgfyi2c_GSLe0KRFU8",
   defaultRestaurantId: 1,
 };
 

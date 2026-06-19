@@ -5,35 +5,74 @@ import BottomNav from "../component/BottomNav";
 import Marker from "../assets/marker.svg";
 import Arrow2 from "../assets/arrow2.svg";
 import { useNavigate } from "react-router-dom";
-import NowLevel from "../assets/nowlevel.svg";
+
+const COORDINATE_STORAGE_KEY = "honbab-map-coordinates";
 
 const STORE_COORDINATES = {
-  1: { lat: 37.53458, lng: 126.97302 },
-  2: { lat: 37.53418, lng: 126.97346 },
-  3: { lat: 37.53378, lng: 126.97272 },
-  4: { lat: 37.53487, lng: 126.97236 },
-  5: { lat: 37.53354, lng: 126.97336 },
-  6: { lat: 37.53498, lng: 126.97318 },
-  7: { lat: 37.53402, lng: 126.97228 },
-  8: { lat: 37.53439, lng: 126.97386 },
-  9: { lat: 37.5334, lng: 126.97248 },
-  10: { lat: 37.53471, lng: 126.97375 },
-  11: { lat: 37.53383, lng: 126.9738 },
-  12: { lat: 37.53512, lng: 126.9727 },
-  13: { lat: 37.53425, lng: 126.97202 },
-  14: { lat: 37.53331, lng: 126.97303 },
-  15: { lat: 37.53452, lng: 126.97256 },
+  1: { lat: 37.53372, lng: 126.97218 },
+  2: { lat: 37.53358, lng: 126.97278 },
+  3: { lat: 37.53336, lng: 126.97325 },
+  4: { lat: 37.53318, lng: 126.97386 },
+  5: { lat: 37.53292, lng: 126.97172 },
+  6: { lat: 37.53278, lng: 126.97236 },
+  7: { lat: 37.53254, lng: 126.97302 },
+  8: { lat: 37.53235, lng: 126.97362 },
+  9: { lat: 37.53212, lng: 126.97412 },
+  10: { lat: 37.53184, lng: 126.97202 },
+  11: { lat: 37.53172, lng: 126.97268 },
+  12: { lat: 37.53155, lng: 126.97328 },
+  13: { lat: 37.53138, lng: 126.97386 },
+  14: { lat: 37.53392, lng: 126.97156 },
+  15: { lat: 37.53218, lng: 126.97142 }
 };
 
 const DEFAULT_CENTER = { lat: 37.53458, lng: 126.97302 };
 const RESTAURANT_IDS = Array.from({ length: 15 }, (_, index) => index + 1);
 
+const getInitialCoordinates = () => {
+  if (typeof window === "undefined") {
+    return STORE_COORDINATES;
+  }
+
+  try {
+    const savedCoordinates = JSON.parse(
+      window.localStorage.getItem(COORDINATE_STORAGE_KEY)
+    );
+
+    if (!savedCoordinates || typeof savedCoordinates !== "object") {
+      return STORE_COORDINATES;
+    }
+
+    return { ...STORE_COORDINATES, ...savedCoordinates };
+  } catch {
+    return STORE_COORDINATES;
+  }
+};
+
 const Map = ({ authToken }) => {
+  const navigate = useNavigate();
   const mapRef = useRef(null);
   const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
+  const [storeCoordinates, setStoreCoordinates] = useState(getInitialCoordinates);
   const [isStationModalOpen, setIsStationModalOpen] = useState(false);
   const [mapMessage, setMapMessage] = useState("식당 정보를 불러오는 중...");
+
+  const updateCoordinate = (restaurantId, nextCoordinate) => {
+    setStoreCoordinates((currentCoordinates) => {
+      const nextCoordinates = {
+        ...currentCoordinates,
+        [restaurantId]: nextCoordinate,
+      };
+
+      window.localStorage.setItem(
+        COORDINATE_STORAGE_KEY,
+        JSON.stringify(nextCoordinates)
+      );
+
+      return nextCoordinates;
+    });
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -146,7 +185,7 @@ const Map = ({ authToken }) => {
       };
 
       stores.forEach((store) => {
-        const coordinates = STORE_COORDINATES[store.restaurantId] ?? store;
+        const coordinates = storeCoordinates[store.restaurantId] ?? store;
         const restaurantName = store.restaurantName ?? store.name;
 
         if (!coordinates.lat || !coordinates.lng) return;
@@ -161,6 +200,7 @@ const Map = ({ authToken }) => {
           position,
           image: normalImage,
           zIndex: 20,
+          draggable: true,
         });
 
         const label = new window.kakao.maps.CustomOverlay({
@@ -200,6 +240,16 @@ const Map = ({ authToken }) => {
           radarOverlay.setPosition(markerItem.position);
           radarOverlay.setMap(map);
         });
+
+        window.kakao.maps.event.addListener(marker, "dragend", () => {
+          const nextPosition = marker.getPosition();
+
+          setSelectedStore(store);
+          updateCoordinate(store.restaurantId, {
+            lat: Number(nextPosition.getLat().toFixed(6)),
+            lng: Number(nextPosition.getLng().toFixed(6)),
+          });
+        });
       });
     });
 
@@ -207,9 +257,7 @@ const Map = ({ authToken }) => {
       isMounted = false;
       mapContainer.innerHTML = "";
     };
-  }, [stores]);
-  const navigate = useNavigate();
-
+  }, [stores, storeCoordinates]);
   return (
     <div className="container">
       <header className="header">
@@ -228,7 +276,7 @@ const Map = ({ authToken }) => {
         />
       </div>
       <div className="current-level">
-        <img src={NowLevel} alt="현재 레벨" />
+        <img src="/image/level_44.svg" alt="현재 레벨" />
       </div>
 
       {isStationModalOpen && (
@@ -260,6 +308,7 @@ const Map = ({ authToken }) => {
 
       <div className="content">
         <div ref={mapRef} className="map" />
+
         {mapMessage && <p className="map-message">{mapMessage}</p>}
         <MapDetail store={selectedStore} />
       </div>
