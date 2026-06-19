@@ -45,7 +45,8 @@ const COLORS = [
 ];
 const SIZES = [48, 40, 30, 40, 48];
 
-const EatBTI = () => {
+// 🛠️ App.jsx에서 넘겨주는 authToken을 props로 받도록 수정했습니다.
+const EatBTI = ({ authToken }) => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
   const [activeIdx, setActiveIdx] = useState(0);
@@ -140,7 +141,41 @@ const EatBTI = () => {
           <button
             className={`bti-submit ${allAnswered ? "enabled" : ""}`}
             disabled={!allAnswered}
-            onClick={() => alert("결과 페이지 준비 중")}
+            onClick={async () => {
+              try {
+                // 🛠️ 하드코딩된 토큰 대신 props로 전달받은 authToken을 사용하며, 없을 때의 예외처리를 추가했습니다.
+                const token = authToken || localStorage.getItem("token");
+
+                const res = await fetch("/api/users/signup/eatbti", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: JSON.stringify({ answers }),
+                });
+
+                if (res.status === 401) {
+                  alert("로그인이 필요합니다.");
+                  navigate("/login");
+                  return;
+                }
+                if (res.status === 400) {
+                  alert("입력값을 확인해주세요.");
+                  return;
+                }
+                if (!res.ok) {
+                  alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                  return;
+                }
+
+                const data = await res.json();
+                const level = data.data.honbabLevel;
+                navigate(`/bti/result/${level}`);
+              } catch (err) {
+                alert("네트워크 오류가 발생했습니다.");
+              }
+            }}
           >
             결과 보기
           </button>
