@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "../styles/BtiResult.css";
 
 export const LEVELS = {
@@ -79,11 +79,20 @@ export const LEVELS = {
   },
 };
 
-export const STEP_LABELS = ["초보자", "익숙해지는 중", "즐기는 편", "고수", "미스터"];
+export const STEP_LABELS = [
+  "초보자",
+  "익숙해지는 중",
+  "즐기는 편",
+  "고수",
+  "미스터",
+];
 
-const BtiResult = () => {
+const BtiResult = ({ authToken }) => {
   const { level } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const token =
+    authToken || location.state?.authToken || localStorage.getItem("token");
   const lv = parseInt(level) || 1;
   const data = LEVELS[lv] || LEVELS[1];
 
@@ -175,7 +184,31 @@ const BtiResult = () => {
         {/* 버튼 */}
         <button
           className="result-btn"
-          onClick={() => navigate(`/map?level=${lv}`)}
+          onClick={async () => {
+            try {
+              const res = await fetch("/api/users/signup/eatbti/result", {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              if (res.status === 401) {
+                alert("로그인이 필요합니다.");
+                navigate("/login");
+                return;
+              }
+              if (!res.ok) {
+                alert("서버 오류가 발생했습니다.");
+                return;
+              }
+
+              // 결과 데이터 받아서 Map으로 이동 (level 파라미터 포함)
+              const data = await res.json();
+              navigate(`/map?level=${lv}`, { state: { resultData: data } });
+            } catch (err) {
+              alert("네트워크 오류가 발생했습니다.");
+            }
+          }}
         >
           <span>레벨에 맞는 맛집 추천 보기</span>
           <img src="/image/move.svg" alt="" className="result-btn-icon" />
