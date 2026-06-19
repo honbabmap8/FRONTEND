@@ -155,3 +155,12 @@
 .contentlist::-webkit-scrollbar-thumb:hover {
   background: #c4c4c4;
 }
+
+.home-list-message {
+  width: 90%;
+  margin: 24px auto;
+  color: #777;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}

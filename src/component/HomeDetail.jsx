@@ -20,6 +20,7 @@ function HomeDetail({ store }) {
 
   const location = store.locationInfo;
   const tags = store.restReviewTagList ?? [];
+  const restaurantName = store.restaurantName ?? store.name;
   const soloLevel = Math.min(Math.max(Number(store.restSoloLevel) || 1, 1), 5);
   const distanceText =
     location?.distance >= 1000
@@ -30,7 +31,7 @@ function HomeDetail({ store }) {
     <div className="home-detail-container">
       <img
         src={store.imageUrl || Eximg}
-        alt={store.name}
+        alt={restaurantName}
         className="home-detail-main-image"
         onError={(event) => {
           event.currentTarget.src = Eximg;
@@ -43,7 +44,7 @@ function HomeDetail({ store }) {
           src={levelImageMap[soloLevel]}
           alt={`레벨 ${soloLevel}`}
         />
-        <p className="restaurant-name">{store.name}</p>
+        <p className="restaurant-name">{restaurantName}</p>
 
         <div className="menu-section">
           <img className="menu-image" alt="메뉴 이미지" src={MenuImg} />

@@ -2,14 +2,72 @@ import BottomNav from "../component/BottomNav";
 import HomeImg from "../assets/hometopimg.png";
 import Click from "../assets/click.svg";
 import HomeDetail from "../component/HomeDetail";
-import { storeData } from "../data/storeData";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 
-const stores = storeData.flatMap((response) => response.data ?? [response]);
+const RESTAURANT_IDS = Array.from({ length: 15 }, (_, index) => index + 1);
 
-function Home() {
+function Home({ authToken }) {
   const navigate = useNavigate();
+  const [stores, setStores] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchRestaurants = async () => {
+      setIsLoading(true);
+      setErrorMessage("");
+
+      try {
+        const responses = await Promise.all(
+          RESTAURANT_IDS.map(async (restaurantId) => {
+            const response = await fetch(`/api/restaurants/${restaurantId}`, {
+              method: "GET",
+              headers: {
+                accept: "*/*",
+                Authorization: `Bearer ${authToken}`,
+              },
+            });
+
+            if (!response.ok) {
+              console.error(
+                `[Home] restaurant ${restaurantId} fetch failed:`,
+                response.status,
+                await response.text(),
+              );
+              return null;
+            }
+
+            const result = await response.json();
+            return result.data;
+          }),
+        );
+
+        if (!isMounted) return;
+
+        setStores(responses.filter(Boolean));
+      } catch (error) {
+        if (!isMounted) return;
+
+        console.error("[Home] restaurants fetch error:", error);
+        setErrorMessage("식당 정보를 불러오지 못했습니다.");
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchRestaurants();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [authToken]);
+
   return (
     <div className="container">
       <div className="top">
@@ -19,11 +77,11 @@ function Home() {
         </div>
 
         <div id="topcontents">
-          <select id="selectstop" defaultValue="sungshin">
-            <option value="sungshin">성신여대입구</option>
-            <option value="hansung">한성대입구</option>
-            <option value="bomun">보문</option>
-            <option value="donam">돈암동</option>
+          <select id="selectstop" defaultValue="samgakji">
+            <option value="samgakji">삼각지역</option>
+            <option value="sookmyung">숙대입구역</option>
+            <option value="namyeong">남영역</option>
+            <option value="yongsan">용산역</option>
           </select>
 
           <div>
@@ -33,7 +91,7 @@ function Home() {
 
            <button onClick={() => navigate("/map")}>
       <img id="clickimg" src={Click} alt="" />
-      <p id="clickp">오늘 혼밥 뭐 먹을까요?</p>
+      <p id="clickp">오늘 혼밥 어때요?</p>
     </button>
         </div>
       </div>
@@ -44,9 +102,15 @@ function Home() {
       </div>
 
       <div className="contentlist">
-        {stores.map((store) => (
-          <HomeDetail key={store.restaurantId} store={store} />
-        ))}
+        {isLoading && <p className="home-list-message">식당 정보를 불러오는 중...</p>}
+        {!isLoading && errorMessage && (
+          <p className="home-list-message">{errorMessage}</p>
+        )}
+        {!isLoading &&
+          !errorMessage &&
+          stores.map((store) => (
+            <HomeDetail key={store.restaurantId} store={store} />
+          ))}
       </div>
       <BottomNav />
     </div>
