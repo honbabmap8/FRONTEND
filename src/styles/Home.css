@@ -91,6 +91,23 @@
     font-weight: 600;
     line-height: 1.35;
 }
+
+#contentslevel {
+    display: inline-block;
+    margin: 0;
+    padding: 2px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(230, 114, 91, 0.00);
+    background: #FAECE7;
+    color: #E6725B;
+    text-align: right;
+    font-family: "Pretendard Variable", Pretendard, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 1.2px;
+}
 .middlebtn{
       height: 70px;
       display: flex;

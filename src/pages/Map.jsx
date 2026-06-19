@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import "../styles/Map.css";
 import MapDetail from "../component/MapDetail";
 import BottomNav from "../component/BottomNav";
 import Marker from "../assets/marker.svg";
 import Arrow2 from "../assets/arrow2.svg";
 import { useNavigate } from "react-router-dom";
+import { fetchMe, getStoredUser } from "../api/user";
 
 const COORDINATE_STORAGE_KEY = "honbab-map-coordinates";
 
@@ -56,7 +57,8 @@ const Map = ({ authToken }) => {
   const [selectedStore, setSelectedStore] = useState(null);
   const [storeCoordinates, setStoreCoordinates] = useState(getInitialCoordinates);
   const [isStationModalOpen, setIsStationModalOpen] = useState(false);
-  const [mapMessage, setMapMessage] = useState("식당 정보를 불러오는 중...");
+  const [mapMessage, setMapMessage] = useState("?앸떦 ?뺣낫瑜?遺덈윭?ㅻ뒗 以?..");
+  const [userInfo, setUserInfo] = useState(getStoredUser);
 
   const updateCoordinate = (restaurantId, nextCoordinate) => {
     setStoreCoordinates((currentCoordinates) => {
@@ -77,8 +79,23 @@ const Map = ({ authToken }) => {
   useEffect(() => {
     let isMounted = true;
 
+    const fetchUser = async () => {
+      try {
+        const user = await fetchMe(authToken);
+        if (isMounted) {
+          setUserInfo({
+            nickname: user.nickname || "",
+            honbabLevel: Number(user.honbabLevel) || 1,
+          });
+        }
+      } catch (error) {
+        console.error("[Map] user fetch error:", error);
+      }
+    };
+
     const fetchRestaurants = async () => {
-      setMapMessage("식당 정보를 불러오는 중...");
+      setMapMessage("?앸떦 ?뺣낫瑜?遺덈윭?ㅻ뒗 以?..");
+      const token = authToken || localStorage.getItem("token");
 
       try {
         const responses = await Promise.all(
@@ -87,7 +104,7 @@ const Map = ({ authToken }) => {
               method: "GET",
               headers: {
                 accept: "*/*",
-                Authorization: `Bearer ${authToken}`,
+                Authorization: `Bearer ${token}`,
               },
             });
 
@@ -111,16 +128,17 @@ const Map = ({ authToken }) => {
         setStores(nextStores);
         setSelectedStore(null);
         setMapMessage(
-          nextStores.length > 0 ? "" : "표시할 식당 정보가 없습니다."
+          nextStores.length > 0 ? "" : "?쒖떆???앸떦 ?뺣낫媛 ?놁뒿?덈떎."
         );
       } catch (error) {
         if (!isMounted) return;
 
         console.error("[Map] restaurants fetch error:", error);
-        setMapMessage("식당 정보를 불러오지 못했습니다.");
+        setMapMessage("?앸떦 ?뺣낫瑜?遺덈윭?ㅼ? 紐삵뻽?듬땲??");
       }
     };
 
+    fetchUser();
     fetchRestaurants();
 
     return () => {
@@ -269,14 +287,14 @@ const Map = ({ authToken }) => {
         <input
           type="text"
           className="search-input"
-          placeholder="원하시는 역을 검색해주세요"
+          placeholder="원하는 역을 검색해주세요"
           readOnly
           onClick={() => setIsStationModalOpen(true)}
           onFocus={() => setIsStationModalOpen(true)}
         />
       </div>
       <div className="current-level">
-        <img src="/image/level_44.svg" alt="현재 레벨" />
+        <img src={`/image/level_${userInfo.honbabLevel}${userInfo.honbabLevel}.svg`} alt="현재 레벨" />
       </div>
 
       {isStationModalOpen && (
@@ -293,7 +311,7 @@ const Map = ({ authToken }) => {
             onClick={(event) => event.stopPropagation()}
           >
             <p id="station-modal-title" className="station-modal-title">
-              아직 다른 역의 데이터가 <br /> 준비되지 않았습니다
+              아직 다른 역 데이터를 <br /> 준비 중입니다
             </p>
             <button
               type="button"
@@ -319,3 +337,5 @@ const Map = ({ authToken }) => {
 };
 
 export default Map;
+
+

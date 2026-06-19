@@ -1,9 +1,10 @@
-import BottomNav from "../component/BottomNav";
+﻿import BottomNav from "../component/BottomNav";
 import HomeImg from "../assets/hometopimg.png";
 import Click from "../assets/click.svg";
 import HomeDetail from "../component/HomeDetail";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchMe, getStoredUser } from "../api/user";
 import "../styles/Home.css";
 
 const RESTAURANT_IDS = Array.from({ length: 15 }, (_, index) => index + 1);
@@ -14,6 +15,7 @@ function Home({ authToken }) {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [activeFilter, setActiveFilter] = useState("level");
+  const [userInfo, setUserInfo] = useState(getStoredUser);
 
   const displayedStores = useMemo(() => {
     if (activeFilter !== "distance") {
@@ -31,9 +33,24 @@ function Home({ authToken }) {
   useEffect(() => {
     let isMounted = true;
 
+    const fetchUser = async () => {
+      try {
+        const user = await fetchMe(authToken);
+        if (isMounted) {
+          setUserInfo({
+            nickname: user.nickname || "",
+            honbabLevel: Number(user.honbabLevel) || 1,
+          });
+        }
+      } catch (error) {
+        console.error("[Home] user fetch error:", error);
+      }
+    };
+
     const fetchRestaurants = async () => {
       setIsLoading(true);
       setErrorMessage("");
+      const token = authToken || localStorage.getItem("token");
 
       try {
         const responses = await Promise.all(
@@ -42,7 +59,7 @@ function Home({ authToken }) {
               method: "GET",
               headers: {
                 accept: "*/*",
-                Authorization: `Bearer ${authToken}`,
+                Authorization: `Bearer ${token}`,
               },
             });
 
@@ -67,7 +84,7 @@ function Home({ authToken }) {
         if (!isMounted) return;
 
         console.error("[Home] restaurants fetch error:", error);
-        setErrorMessage("식당 정보를 불러오지 못했습니다.");
+        setErrorMessage("?앸떦 ?뺣낫瑜?遺덈윭?ㅼ? 紐삵뻽?듬땲??");
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -75,6 +92,7 @@ function Home({ authToken }) {
       }
     };
 
+    fetchUser();
     fetchRestaurants();
 
     return () => {
@@ -99,8 +117,8 @@ function Home({ authToken }) {
           </select>
 
           <div>
-            <p id="contentslevel">레벨1</p>
-            <p id="contentsp">안녕하세요 님<br />혼밥 식당 추천해드려요</p>
+            <p id="contentslevel">레벨{userInfo.honbabLevel}</p>
+            <p id="contentsp">안녕하세요 <strong>{userInfo.nickname}</strong> 님<br />혼밥 식당 추천해드려요</p>
           </div>
 
            <button onClick={() => navigate("/map")}>
@@ -117,7 +135,7 @@ function Home({ authToken }) {
           type="button"
           onClick={() => setActiveFilter("level")}
         >
-          레벨 1
+          레벨 {userInfo.honbabLevel}
         </button>
         <button
           id="longbtn"
@@ -130,7 +148,7 @@ function Home({ authToken }) {
       </div>
 
       <div className="contentlist">
-        {isLoading && <p className="home-list-message">식당 정보를 불러오는 중...</p>}
+        {isLoading && <p className="home-list-message">데이터를 불러오는 중입니다...</p>}
         {!isLoading && errorMessage && (
           <p className="home-list-message">{errorMessage}</p>
         )}
@@ -146,3 +164,5 @@ function Home({ authToken }) {
 }
 
 export default Home;
+
+
