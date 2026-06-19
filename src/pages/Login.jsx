@@ -55,6 +55,9 @@ const Login = () => {
       if (data.userId) {
         localStorage.setItem("userId", data.userId);
       }
+      if (data.nickname) {
+        localStorage.setItem("nickname", data.nickname);
+      }
       if (data.honbabLevel !== undefined) {
         localStorage.setItem("honbabLevel", data.honbabLevel);
       }
