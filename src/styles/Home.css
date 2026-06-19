@@ -117,6 +117,11 @@
 
 }
 
+.middlebtn button.active{
+      background: #E6725B;
+      color: #ffffff;
+}
+
 .contentlist {
   width: 100%;
   flex: 1;

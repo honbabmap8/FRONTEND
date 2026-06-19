@@ -2,7 +2,7 @@ import BottomNav from "../component/BottomNav";
 import HomeImg from "../assets/hometopimg.png";
 import Click from "../assets/click.svg";
 import HomeDetail from "../component/HomeDetail";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 
@@ -13,6 +13,20 @@ function Home({ authToken }) {
   const [stores, setStores] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [activeFilter, setActiveFilter] = useState("level");
+
+  const displayedStores = useMemo(() => {
+    if (activeFilter !== "distance") {
+      return stores;
+    }
+
+    return [...stores].sort((a, b) => {
+      const aDistance = Number(a.locationInfo?.distance ?? Infinity);
+      const bDistance = Number(b.locationInfo?.distance ?? Infinity);
+
+      return aDistance - bDistance;
+    });
+  }, [activeFilter, stores]);
 
   useEffect(() => {
     let isMounted = true;
@@ -97,8 +111,22 @@ function Home({ authToken }) {
       </div>
 
       <div className="middlebtn">
-        <button id="levelbtn">레벨 1</button>
-        <button id="longbtn">거리순</button>
+        <button
+          id="levelbtn"
+          className={activeFilter === "level" ? "active" : ""}
+          type="button"
+          onClick={() => setActiveFilter("level")}
+        >
+          레벨 1
+        </button>
+        <button
+          id="longbtn"
+          className={activeFilter === "distance" ? "active" : ""}
+          type="button"
+          onClick={() => setActiveFilter("distance")}
+        >
+          거리순
+        </button>
       </div>
 
       <div className="contentlist">
@@ -108,7 +136,7 @@ function Home({ authToken }) {
         )}
         {!isLoading &&
           !errorMessage &&
-          stores.map((store) => (
+          displayedStores.map((store) => (
             <HomeDetail key={store.restaurantId} store={store} />
           ))}
       </div>

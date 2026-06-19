@@ -13,6 +13,8 @@ import RegisterStep2 from "./pages/RegisterStep2";
 import Result from "./pages/Result";
 import Review from "./pages/Review";
 
+
+
 function App() {
   return (
     <BrowserRouter>
