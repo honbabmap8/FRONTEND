@@ -29,7 +29,7 @@ const Review = ({ authToken, defaultRestaurantId }) => {
   const store = location.state?.store || {
     restaurantId: defaultRestaurantId,
     name: "콘콘",
-    date: "2026. 05. 23 (일)",
+    date: "2026. 06. 22 (월)",
     visitCount: 3,
   };
   const restaurantId = store.restaurantId ?? defaultRestaurantId;

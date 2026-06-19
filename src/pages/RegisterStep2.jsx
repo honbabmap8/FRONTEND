@@ -37,7 +37,7 @@ const RegisterStep2 = () => {
 
   const canSubmit =
     idValid &&
-    form.password &&
+    form.password.length >= 8 &&
     form.passwordConfirm &&
     form.name &&
     form.phone.replace(/\D/g, "").length >= 10 &&
@@ -170,7 +170,37 @@ const RegisterStep2 = () => {
         <button
           className={`reg-btn ${canSubmit ? "enabled" : ""}`}
           disabled={!canSubmit}
-          onClick={() => navigate("/register/eatbti")}
+          onClick={async () => {
+            try {
+              const res = await fetch("/api/users/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  loginId: form.id,
+                  nickname: form.name,
+                  password: form.password,
+                }),
+              });
+
+              if (res.status === 400) {
+                alert("입력값을 확인해주세요.");
+                return;
+              }
+              if (res.status === 409) {
+                alert("이미 사용 중인 아이디입니다.");
+                return;
+              }
+              if (!res.ok) {
+                alert("서버 오류가 발생했습니다.");
+                return;
+              }
+
+              alert("회원가입이 완료되었습니다. 로그인을 진행해 주세요.");
+              navigate("/login");
+            } catch (err) {
+              alert("네트워크 오류가 발생했습니다.");
+            }
+          }}
           style={{ marginBottom: "96px" }}
         >
           다음단계

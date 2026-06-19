@@ -45,7 +45,6 @@ const COLORS = [
 ];
 const SIZES = [48, 40, 30, 40, 48];
 
-// 🛠️ App.jsx에서 넘겨주는 authToken을 props로 받도록 수정했습니다.
 const EatBTI = ({ authToken }) => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
@@ -53,18 +52,28 @@ const EatBTI = ({ authToken }) => {
   const refs = useRef([]);
 
   const handleAnswer = (qIdx, val) => {
-    setActiveIdx(qIdx);
+    if (qIdx !== activeIdx) {
+      setActiveIdx(qIdx);
+      return;
+    }
+
     const next = [...answers];
     next[qIdx] = val;
     setAnswers(next);
-    const nextUnanswered = next.findIndex((a, i) => i > qIdx && a === null);
-    if (nextUnanswered !== -1) {
+
+    const firstUnanswered = next.findIndex((a) => a === null);
+
+    if (firstUnanswered !== -1) {
+      setActiveIdx(firstUnanswered);
+
       setTimeout(() => {
-        refs.current[nextUnanswered]?.scrollIntoView({
+        refs.current[firstUnanswered]?.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
       }, 150);
+    } else {
+      setActiveIdx(-1);
     }
   };
 
@@ -80,10 +89,10 @@ const EatBTI = ({ authToken }) => {
         <div style={{ width: 32 }} />
       </div>
 
-      {/* 문항 스크롤 해서 다음 단계 나오게 구현함 */}
       <div className="bti-body">
         {QUESTIONS.map((q, qIdx) => {
           const isActive = qIdx === activeIdx;
+
           return (
             <div
               key={qIdx}
@@ -143,7 +152,6 @@ const EatBTI = ({ authToken }) => {
             disabled={!allAnswered}
             onClick={async () => {
               try {
-                // 🛠️ 하드코딩된 토큰 대신 props로 전달받은 authToken을 사용하며, 없을 때의 예외처리를 추가했습니다.
                 const token = authToken || localStorage.getItem("token");
 
                 const res = await fetch("/api/users/signup/eatbti", {
@@ -170,9 +178,16 @@ const EatBTI = ({ authToken }) => {
                 }
 
                 const data = await res.json();
-                const level = data.data.honbabLevel;
-                navigate(`/bti/result/${level}`);
+
+                const level = data?.data?.honbabLevel;
+
+                if (level !== undefined) {
+                  navigate(`/bti/result/${level}`);
+                } else {
+                  alert("결과 데이터를 읽어오지 못했습니다.");
+                }
               } catch (err) {
+                console.error(err);
                 alert("네트워크 오류가 발생했습니다.");
               }
             }}

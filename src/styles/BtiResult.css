@@ -1,5 +1,3 @@
-/* BtiResult.css */
-
 .result-page {
   position: relative;
   width: 100%;
@@ -25,7 +23,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 70%;
 }
 
 /* 레벨별 배경색 */
@@ -48,7 +46,7 @@
 /* 배경 텍스트 */
 .result-bg-text {
   position: absolute;
-  top: 50px;
+  top: 30px;
   left: 0;
   right: 0;
   display: flex;
@@ -60,7 +58,7 @@
 }
 
 .result-level-label {
-  font-size: 13px;
+  font-size: 20px;
   font-weight: 600;
   color: #fff;
   opacity: 0.9;
@@ -79,7 +77,7 @@
 
 .result-title {
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 800;
   color: #fff;
   margin: 0;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -89,9 +87,11 @@
   font-size: 13px;
   color: rgba(255, 255, 255, 0.9);
   text-align: center;
-  line-height: 1.6;
+  line-height: 1.2;
   margin: 0;
   white-space: pre-line;
+  font-weight: 600;
+  letter-spacing: -0.2px;
 }
 
 /* ── 흰 카드 — 양옆 여백 있게 ── */
@@ -99,10 +99,10 @@
   position: absolute;
   left: 14px;
   right: 14px;
-  top: 54%;
+  top: 55%;
   z-index: 1;
   background: #fff;
-  border-radius: 24px 24px 0 0 ;
+  border-radius: 24px 24px 0 0;
   overflow: hidden;
   padding: 16px 14px;
   display: flex;
@@ -122,9 +122,10 @@
 .result-card-title {
   font-size: 15px;
   font-weight: 700;
-  color: #111;
+  color: #000000;
   text-align: center;
   margin: 0;
+  letter-spacing: -0.1px;
 }
 
 /* 스텝 */
@@ -186,6 +187,7 @@
   color: #aaa;
   white-space: nowrap;
   text-align: center;
+  font-weight: 500;
 }
 
 .result-step-label.active {
@@ -195,22 +197,23 @@
 
 /* 특징 박스 */
 .result-feature-box {
-  background: #faf6f3;
+  background: #fcf1e1;
   border-radius: 13px;
   padding: 9px 10px 11px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   max-width: 292px;
 }
 
 .result-feature-title {
   font-size: 13px;
   font-weight: 700;
-  color: #111;
+  color: #000000;
   text-align: center;
   margin: 0;
+  letter-spacing: -0.4px;
 }
 
 /* 제목 아래 구분선 */
@@ -223,7 +226,7 @@
 .result-features {
   display: flex;
   justify-content: center;
-  gap: 6px;
+  gap: 20px;
 }
 
 .result-feature-item {
@@ -235,26 +238,31 @@
 }
 
 .result-feature-img {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
 }
 
 .result-feature-text {
-  font-size: 8px;
-  color: #555;
+  font-size: 10px;
+  font-weight: 600;
+  color: #000000;
   text-align: center;
-  line-height: 1.4;
+  line-height: 1.2;
   margin: 0;
+
   white-space: pre-line;
+  word-break: keep-all;
+  min-width: 77px;
+  letter-spacing: -0.4px;
 }
 
 /* 말풍선 — 더 둥글고 그림자 */
 .result-quote {
-  background: #fdf5f2;
-  border-radius: 16px;
-  border: 1.5px solid #f0d8d0;
-  box-shadow: 0 4px 12px rgba(234, 81, 45, 0.08);
+  background: #ffffff;
+  border-radius: 25px;
+  border: 1px solid #848484;
+  box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.1);
   padding: 9px 12px;
   display: flex;
   gap: 6px;
@@ -265,7 +273,7 @@
 
 .result-quote-mark {
   font-size: 20px;
-  color: #ea512d;
+  color: #e7795d;
   font-weight: 900;
   line-height: 1;
   flex-shrink: 0;
@@ -279,30 +287,32 @@
 .result-quote-text {
   flex: 1;
   font-size: 12px;
-  color: #333;
+  font-weight: 600;
+  color: #000000;
   line-height: 1.2;
   margin: 0;
   white-space: pre-line;
   text-align: center;
+  letter-spacing: -0.5px;
 }
 
 .result-highlight {
   color: #ea512d;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* 버튼 — 더 둥글고 그림자 */
 .result-btn {
   width: 100%;
-  max-width: 292px;
+  max-width: 250px;
   height: 46px;
   border: none;
   border-color: none;
   border-radius: 24px;
-  background: #ea512d;
+  background: #e7795d;
   color: #fff;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   font-family: "Pretendard", sans-serif;
   cursor: pointer;
   display: flex;
