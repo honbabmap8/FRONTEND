@@ -35,6 +35,7 @@ function MapDetail({ store }) {
   const features = restaurant.restFeatureList ?? [];
   const tags = restaurant.restReviewTagList ?? [];
   const location = restaurant.locationInfo;
+  const restaurantName = restaurant.restaurantName ?? restaurant.name;
   const soloLevel = Math.min(Math.max(Number(restaurant.restSoloLevel) || 1, 1), 5);
 
   return (
@@ -45,7 +46,7 @@ function MapDetail({ store }) {
         <img
           className="storeimg"
           src={restaurant.imageUrl || Eximg}
-          alt={restaurant.name}
+          alt={restaurantName}
           onError={(event) => {
             event.currentTarget.src = Eximg;
           }}
@@ -57,7 +58,7 @@ function MapDetail({ store }) {
             src={`/image/level_${soloLevel}.svg`}
             alt={`레벨 ${soloLevel}`}
           />
-          <h3 className="name">{restaurant.name}</h3>
+          <h3 className="name">{restaurantName}</h3>
 
           <div className="menulist">
             <img className="menuiconimage" alt="메뉴 이미지" src={Menu} />

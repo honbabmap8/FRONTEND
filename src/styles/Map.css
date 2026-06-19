@@ -130,6 +130,23 @@ font-weight: 600;
   background-color: #ddd;
 }
 
+.map-message {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #777;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
 .map-marker-label {
   padding: 3px 6px;
   border-radius: 999px;
