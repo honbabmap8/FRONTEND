@@ -45,7 +45,8 @@ const COLORS = [
 ];
 const SIZES = [48, 40, 30, 40, 48];
 
-const EatBTI = ({ authToken }) => {
+// ✨ 불필요한 매개변수(authToken)를 깔끔하게 정리했습니다.
+const EatBTI = () => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
   const [activeIdx, setActiveIdx] = useState(0);
@@ -152,7 +153,8 @@ const EatBTI = ({ authToken }) => {
             disabled={!allAnswered}
             onClick={async () => {
               try {
-                const token = authToken || localStorage.getItem("token");
+                // ✨ 기존 변수 합집합 구조(||) 대신 로컬스토리지를 명확하게 단독 참조합니다.
+                const token = localStorage.getItem("token");
 
                 const res = await fetch("/api/users/signup/eatbti", {
                   method: "POST",
