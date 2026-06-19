@@ -1,7 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
-
 import { RegisterProvider } from "./context/RegisterContext";
 
 import BtiResult from "./pages/BtiResult";
@@ -15,67 +13,33 @@ import RegisterStep2 from "./pages/RegisterStep2";
 import Result from "./pages/Result";
 import Review from "./pages/Review";
 
-const appConfig = {
-  authToken:
-    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkb28iLCJpYXQiOjE3ODE4Njk0NjIsImV4cCI6MTc4MTg3MzA2Mn0.s6K0hi2R4e2FLWoL-kDeY_J_GBgfyi2c_GSLe0KRFU8",
-  defaultRestaurantId: 1,
-};
+
 
 function App() {
   return (
     <BrowserRouter>
       <RegisterProvider>
         <Routes>
-          <Route path="/" element={<Map authToken={appConfig.authToken} />} />
-          <Route
-            path="/map"
-            element={<Map authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/home"
-            element={<Home authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/main"
-            element={<Home authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/result"
-            element={<Result authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/login"
-            element={<Login authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/register"
-            element={<RegisterStep1 authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/register/step2"
-            element={<RegisterStep2 authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/register/eatbti"
-            element={<EatBTI authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/bti/result/:level"
-            element={<BtiResult authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/mypage"
-            element={<MyPage authToken={appConfig.authToken} />}
-          />
-          <Route
-            path="/review"
-            element={
-              <Review
-                authToken={appConfig.authToken}
-                defaultRestaurantId={appConfig.defaultRestaurantId}
-              />
-            }
-          />
+          <Route path="/" element={<Navigate to="/login" replace />} />
+
+          {/* 지도 및 메인 플로우 */}
+          <Route path="/map" element={<Map />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/main" element={<Home />} />
+          <Route path="/result" element={<Result />} />
+
+          {/* 인증 및 인증 후 플로우 */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterStep1 />} />
+          <Route path="/register/step2" element={<RegisterStep2 />} />
+
+          {/* EatBTI 검사 및 결과 */}
+          <Route path="/register/eatbti" element={<EatBTI />} />
+          <Route path="/bti/result/:level" element={<BtiResult />} />
+
+          {/* 마이페이지 및 리뷰 */}
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/review" element={<Review defaultRestaurantId={1} />} />
         </Routes>
       </RegisterProvider>
     </BrowserRouter>

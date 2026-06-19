@@ -15,9 +15,64 @@ const Login = () => {
 
   const canLogin = form.id.trim() && form.password;
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!canLogin) return;
-    alert("로그인 API 연동 예정");
+
+    try {
+      const res = await fetch("/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          loginId: form.id,
+          password: form.password,
+        }),
+      });
+
+      if (res.status === 400) {
+        alert("아이디 또는 비밀번호 형식을 확인해주세요.");
+        return;
+      }
+      if (res.status === 401) {
+        alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+        return;
+      }
+      if (res.status === 404) {
+        alert("가입되지 않은 유저입니다.");
+        return;
+      }
+      if (!res.ok) {
+        alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+        return;
+      }
+
+      const data = await res.json();
+
+      if (data.accessToken) {
+        localStorage.setItem("token", data.accessToken);
+      }
+      if (data.userId) {
+        localStorage.setItem("userId", data.userId);
+      }
+      if (data.nickname) {
+        localStorage.setItem("nickname", data.nickname);
+      }
+      if (data.honbabLevel !== undefined) {
+        localStorage.setItem("honbabLevel", data.honbabLevel);
+      }
+
+      const isNewUser = data.newUser === true || data.newUser === "true";
+
+      if (isNewUser) {
+        navigate("/register/eatbti");
+      } else {
+        navigate("/home", { state: { honbabLevel: data.honbabLevel } });
+      }
+    } catch (err) {
+      console.error(err);
+      alert("네트워크 오류가 발생했습니다.");
+    }
   };
 
   return (

@@ -3,13 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "../styles/MyPage.css";
 import BottomNav from "../component/BottomNav";
 
-// 임시 더미 데이터 — 연동 시 API로 교체
-const MOCK_USER = {
-  name: "임혜림",
-  level: 3,
-  levelLabel: "혼밥 즐기는 중",
-};
-
 const LEVEL_LABELS = {
   1: "혼밥 초보자",
   2: "익숙해지는 중",
@@ -18,10 +11,8 @@ const LEVEL_LABELS = {
   5: "혼밥 마스터",
 };
 
-// 단골가게 더미 (빈 배열이면 empty state)
+// 단골가게 더미 데이터
 const MOCK_FAVORITES = [
-  // 비어있으면 왼쪽 화면, 채우면 오른쪽 화면
-  // { id: 1, name: "온돈 카츠", menu: "1인 짜장면, 탕수육 세트", distance: "1.9 KM", area: "삼각지역", level: 1, tags: ["혼밥 맛집", "가성비 맛집", "웨이팅 적음"], image: "/image/store1.jpg" },
   {
     id: 1,
     name: "101번지남산돈까스 삼각지점",
@@ -63,13 +54,23 @@ const MENUS = [
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const user = MOCK_USER;
+
+  // ──────────────────────────────────────────────────────────
+  // ✨ 로그인 시 로컬스토리지에 저장된 유저 정보를 실시간으로 수집
+  // 값이 없을 경우를 대비해 기본값(Fallback)을 안전하게 지정합니다.
+  // ──────────────────────────────────────────────────────────
+  const user = {
+    name: localStorage.getItem("nickname") || "사용자",
+    level: Number(localStorage.getItem("honbabLevel")) || 1,
+  };
+
   const favorites = MOCK_FAVORITES;
   const isEmpty = favorites.length === 0;
 
   return (
     <div className="mypage-page">
       <div className="mypage-body">
+        {/* 프로필 영역: 로그인 데이터 동적 반영 */}
         <div className="mypage-profile">
           <img
             src="/image/mypage_character.svg"
@@ -84,7 +85,7 @@ const MyPage = () => {
             <p className="mypage-level">
               혼밥 레벨{" "}
               <span className="mypage-level-num">Lv.{user.level}</span>{" "}
-              {LEVEL_LABELS[user.level]}
+              {LEVEL_LABELS[user.level] || "혼밥 탐험가"}
             </p>
           </div>
         </div>
@@ -97,7 +98,6 @@ const MyPage = () => {
               onClick={() => alert(`${m.label} 준비 중`)}
             >
               <img
-                key={i}
                 src={m.icon}
                 alt={m.label}
                 className={`mypage-menu-icon ${m.className || ""}`}
@@ -124,7 +124,6 @@ const MyPage = () => {
           <div className="mypage-fav-divider" />
 
           {isEmpty ? (
-            /* 비어있을 때 */
             <div className="mypage-empty">
               <img
                 src="/image/mypage_empty.svg"
@@ -143,7 +142,6 @@ const MyPage = () => {
               </button>
             </div>
           ) : (
-            /* 가게 목록 */
             <div className="mypage-fav-list">
               {favorites.map((store) => (
                 <div key={store.id} className="mypage-store-item">
@@ -159,11 +157,11 @@ const MyPage = () => {
                     <p className="mypage-store-name">{store.name}</p>
                     <p className="mypage-store-menu">🍽 {store.menu}</p>
                     <p className="mypage-store-loc">
-                      {store.distance}m　{store.area}
+                      {store.distance}m {store.area}
                     </p>
                     <p className="mypage-store-tags">
                       {store.tags.map((t, i) => (
-                        <span key={i}># {t}　</span>
+                        <span key={i}># {t} </span>
                       ))}
                     </p>
                   </div>

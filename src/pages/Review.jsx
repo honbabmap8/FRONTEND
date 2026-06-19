@@ -22,14 +22,15 @@ const KEYWORDS = {
   ],
 };
 
-const Review = ({ authToken, defaultRestaurantId }) => {
+// 상위에서 정적으로 관리하던 authToken 제거
+const Review = ({ defaultRestaurantId }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const store = location.state?.store || {
     restaurantId: defaultRestaurantId,
     name: "콘콘",
-    date: "2026. 05. 23 (일)",
+    date: "2026. 06. 22 (월)",
     visitCount: 3,
   };
   const restaurantId = store.restaurantId ?? defaultRestaurantId;
@@ -65,12 +66,16 @@ const Review = ({ authToken, defaultRestaurantId }) => {
       console.log("[Review] POST", url);
       console.log("[Review] request body:", payload);
 
+      // 로컬스토리지에서 로그인 성공 시 세팅했던 진짜 토큰 수집
+      const token = localStorage.getItem("token");
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
           accept: "*/*",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
+          // ✨ 하드코딩된 변수 대신 브라우저 저장소의 실제 토큰을 실시간으로 반영
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
       });
