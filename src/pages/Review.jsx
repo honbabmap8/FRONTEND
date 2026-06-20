@@ -74,7 +74,6 @@ const Review = ({ defaultRestaurantId }) => {
         headers: {
           accept: "*/*",
           "Content-Type": "application/json",
-          // ✨ 하드코딩된 변수 대신 브라우저 저장소의 실제 토큰을 실시간으로 반영
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
