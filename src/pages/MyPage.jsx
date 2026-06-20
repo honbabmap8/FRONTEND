@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/MyPage.css";
 import BottomNav from "../component/BottomNav";
+
 
 const LEVEL_LABELS = {
   1: "혼밥 초보자",

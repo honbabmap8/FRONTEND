@@ -3,6 +3,9 @@ import "../styles/Register.css";
 import BottomNav from "../component/BottomNav";
 import { useRegister } from "../context/RegisterContext";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const RegisterStep2 = () => {
   const navigate = useNavigate();
   const { formData, updateForm } = useRegister();
@@ -172,7 +175,7 @@ const RegisterStep2 = () => {
           disabled={!canSubmit}
           onClick={async () => {
             try {
-              const res = await fetch("/api/users/signup", {
+              const res = await fetch(`${API_URL}/api/users/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

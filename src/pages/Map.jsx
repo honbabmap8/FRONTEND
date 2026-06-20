@@ -7,6 +7,8 @@ import Arrow2 from "../assets/arrow2.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { fetchMe, getStoredUser } from "../api/user";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const COORDINATE_STORAGE_KEY = "honbab-map-coordinates";
 
 const STORE_COORDINATES = {
@@ -102,7 +104,7 @@ const Map = ({ authToken }) => {
       try {
         const responses = await Promise.all(
           RESTAURANT_IDS.map(async (restaurantId) => {
-            const response = await fetch(`/api/restaurants/${restaurantId}`, {
+            const response = await fetch(`${API_URL}/api/restaurants/${restaurantId}`, {
               method: "GET",
               headers: {
                 accept: "*/*",

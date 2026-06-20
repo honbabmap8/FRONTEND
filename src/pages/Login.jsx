@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const Login = () => {
   const navigate = useNavigate();
 
@@ -19,7 +22,7 @@ const Login = () => {
     if (!canLogin) return;
 
     try {
-      const res = await fetch("/api/users/login", {
+      const res = await fetch(`${API_URL}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

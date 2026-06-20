@@ -7,6 +7,8 @@ import Level4 from "../assets/level4.svg";
 import Level5 from "../assets/level5.svg";
 import MenuImg from "../assets/menuimg.svg";
 
+
+
 const levelImageMap = {
   1: Level1,
   2: Level2,

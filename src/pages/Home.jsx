@@ -8,6 +8,7 @@ import { fetchMe, getStoredUser } from "../api/user";
 import "../styles/Home.css";
 
 const RESTAURANT_IDS = Array.from({ length: 15 }, (_, index) => index + 1);
+const API_URL = import.meta.env.VITE_API_URL;
 
 const getSoloLevel = (store) => Number(store.restSoloLevel) || 1;
 
@@ -70,7 +71,7 @@ function Home({ authToken }) {
       try {
         const responses = await Promise.all(
           RESTAURANT_IDS.map(async (restaurantId) => {
-            const response = await fetch(`/api/restaurants/${restaurantId}`, {
+            const response = await fetch(`${API_URL}/api/restaurants/${restaurantId}`, {
               method: "GET",
               headers: {
                 accept: "*/*",

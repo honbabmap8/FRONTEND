@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Register.css";
 import BottomNav from "../component/BottomNav";
 
+
+
 const Checkbox = ({ checked, size = 20 }) => (
   <svg
     width={size}
