@@ -1,0 +1,199 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.login-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+.login-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.login-back img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.login-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 32px 40px;
+}
+
+/* 로고 */
+.login-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 32px 40px;
+}
+
+/* 상단 캐릭터 로고 */
+.login-logo-wrap {
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.login-character-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.login-logo-placeholder {
+  position: absolute;
+  font-size: 14px;
+  color: #bbb;
+  font-weight: 500;
+}
+
+.login-logo-wrap:has(img[style*="display: none"]) .login-logo-placeholder {
+  display: flex;
+}
+.login-logo-wrap:has(img:not([style*="display: none"]))
+  .login-logo-placeholder {
+  display: none;
+}
+
+/* 하단 서비스명 타이틀 */
+.login-app-name {
+  width: 120px;
+  height: 40px;
+  margin-top: -20px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-title-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 폼 */
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-family: "Pretendard", sans-serif;
+  color: #111;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.login-input:focus {
+  border-color: #e7795d;
+}
+
+.login-input::placeholder {
+  color: #bbb;
+}
+
+/* 로그인 상태 유지 */
+.login-keep {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  margin-top: 2px;
+  margin-bottom: 15px;
+  user-select: none;
+}
+
+/* 로그인 버튼 */
+.login-btn {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 26px;
+  background: #e0b0a0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Pretendard", sans-serif;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.15s;
+}
+
+.login-btn.enabled {
+  background: #e7795d;
+}
+
+.login-btn.enabled:hover {
+  background: #c95e48;
+}
+
+.login-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* 하단 -> 회원가입 이동 포함 */
+.login-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.login-link {
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  font-family: "Pretendard", sans-serif;
+}
+
+.login-link:hover {
+  color: #e7795d;
+}
+
+.login-divider {
+  color: #ccc;
+  font-size: 12px;
+}

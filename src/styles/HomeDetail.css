@@ -1,0 +1,81 @@
+.home-detail-container{
+  width: 90%; 
+  height: auto;        
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+    align-items: stretch;
+    gap: 15px;
+    padding: 12px 0;
+}
+.home-detail-content{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+   justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+}
+.home-detail-main-image{
+    height: 135px;
+    width: 120px;
+    object-fit: cover;
+}
+.restaurant-name{
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.restaurant-level {
+    width: 58px;
+    height: auto;
+    object-fit: contain;
+}
+.menu-section{
+    display: flex;
+  flex-direction: row;
+justify-content: flex-start;
+    align-items: center;
+    gap: 3px;
+    padding: 5px 0;
+}
+.menu-image{
+    height: 14px;
+    width: 15px;
+}
+.menu-name{
+    font-size: 14px;
+    color: #323232;
+    font-weight: 600;
+    line-height: 1.25;
+}
+.location-section{
+    display: flex;
+  flex-direction: row;
+justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+     padding: 5px 0 0 0;
+}
+.tags-container{
+ display: flex;
+  flex-direction: row;
+justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 5px 0;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.tag-item{
+    font-size: 13px;
+    font-weight: 600;
+letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+.location-text{
+    font-size: 12px;
+    color: #757575;
+     font-weight: 600;
+}

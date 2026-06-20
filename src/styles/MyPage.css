@@ -1,0 +1,266 @@
+.mypage-page {
+  position: relative;
+  width: 100%;
+  max-width: 393px;
+  height: 100dvh;
+  margin: 0 auto;
+  background: #fef0e9;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mypage-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 20px 16px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.mypage-body::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── 프로필 ── */
+.mypage-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 4px 8px;
+}
+
+.mypage-character {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.mypage-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mypage-name {
+  font-size: 20px;
+  color: #111;
+  margin: 0;
+}
+
+.mypage-name strong {
+  font-weight: 800;
+}
+
+.mypage-desc {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+.mypage-level {
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+  margin: 0;
+}
+
+.mypage-level-num {
+  color: #e7795d;
+  font-weight: 800;
+}
+
+/* ── 4개 메뉴 ── */
+.mypage-menus {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px 8px;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.mypage-menu-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+}
+
+.mypage-menu-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.mypage-menu-label {
+  font-size: 11px;
+  color: #444;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ── 단골가게 박스 ── */
+.mypage-fav-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px 16px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  flex: 1;
+}
+
+.mypage-fav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.mypage-fav-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+}
+
+.mypage-fav-add {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.mypage-fav-plus-icon {
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
+}
+
+.mypage-fav-divider {
+  width: 100%;
+  height: 1px;
+  background: #f0e8e4;
+  margin-bottom: 16px;
+}
+
+/* 빈 상태 */
+.mypage-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 0 8px;
+}
+
+.mypage-empty-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.mypage-empty-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.mypage-empty-sub {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+}
+
+.mypage-empty-btn {
+  margin-top: 10px;
+  padding: 12px 32px;
+  background: #e7795d;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Pretendard", sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.mypage-empty-btn:hover {
+  background: #d65d40;
+}
+
+/* 가게 목록 */
+.mypage-fav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mypage-store-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.mypage-store-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.mypage-store-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mypage-store-level {
+  display: inline-block;
+  background: #faece7;
+  color: #e6725b;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 0.5px solid #e6725b;
+  width: fit-content;
+}
+
+.mypage-store-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+  margin: 2px 0 0;
+}
+
+.mypage-store-menu {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+.mypage-store-loc {
+  font-size: 9px;
+  color: #999;
+  margin: 0;
+}
+
+.mypage-store-tags {
+  font-size: 8px;
+  color: black;
+  margin: 2px 0 0;
+}

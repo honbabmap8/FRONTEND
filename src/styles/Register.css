@@ -1,0 +1,286 @@
+.reg-header {
+  width: 100%;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #ececec;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.reg-back,
+.reg-home {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.reg-back img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.reg-home img {
+  width: 20px;
+  height: 20px;
+  padding: 0 2px;
+  object-fit: contain;
+}
+
+.reg-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+}
+
+/* 본문 스크롤 영역 — 버튼 포함해서 다 여기 안에 */
+.reg-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 28px 24px 0;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.reg-welcome {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.4;
+
+  display: block;
+}
+
+.login-logo {
+  height: 35px;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2;
+  margin-bottom: -2px;
+  margin-left: -10px;
+  object-fit: contain;
+}
+
+.reg-welcome span {
+  vertical-align: middle;
+}
+
+/* 스텝 넘어가는 부분 */
+.reg-steps {
+  display: flex;
+  align-items: center;
+  max-width: 320px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.step-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #c8c8c8;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-circle.active {
+  background: #e7795d;
+}
+.step-circle.done {
+  background: #888;
+}
+
+.step-label {
+  font-size: 11px;
+  color: #aaa;
+  white-space: nowrap;
+}
+
+.step.active .step-label,
+.step.done .step-label {
+  color: #555;
+}
+
+.step-line {
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+  margin-bottom: 20px;
+}
+
+.step-line.active {
+  background: #e7795d;
+}
+
+/* 약관 */
+.terms-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.terms-all {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.terms-all-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+}
+
+.terms-list {
+  display: flex;
+  flex-direction: column;
+  padding-left: 4px;
+}
+
+.terms-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  user-select: none;
+}
+
+.terms-sub {
+  padding-left: 24px;
+}
+
+.terms-desc {
+  margin-top: 1px;
+  font-size: 8px;
+  color: #aaa;
+  line-height: 1.7;
+}
+
+/* 정보입력 폼 */
+.info-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-form-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.form-label {
+  width: 85px;
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  padding-top: 11px;
+}
+
+.form-input-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: "Pretendard", sans-serif;
+  color: #111;
+  outline: none;
+  background: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.form-input:focus {
+  border-color: #e7795d;
+}
+.form-input.error {
+  border-color: #e05050;
+}
+
+.form-hint {
+  font-size: 11px;
+  color: #aaa;
+  text-align: right;
+}
+
+.form-error {
+  color: #e05050;
+}
+
+/* 버튼 - reg body 안에 넣어서 안내려가게 잡기 */
+.reg-btn {
+  width: 100%;
+  height: 52px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 10px;
+  background: #e0b0a0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Pretendard", sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: 4px;
+  margin-bottom: 96px;
+}
+
+.reg-btn.enabled {
+  background: #e7795d;
+}
+.reg-btn.enabled:hover {
+  background: #c95e48;
+}
+.reg-btn:disabled {
+  cursor: not-allowed;
+}
