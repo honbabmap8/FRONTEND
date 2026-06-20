@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Review.css";
 import BottomNav from "../component/BottomNav";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const KEYWORDS = {
   "혼밥 정도": [
     { id: 1, label: "🪑 혼자 앉기 편해요" },
@@ -58,7 +60,7 @@ const Review = ({ defaultRestaurantId }) => {
     setIsSubmitting(true);
 
     try {
-      const url = `/api/restaurants/${restaurantId}/reviews`;
+      const url = `/restaurants/${restaurantId}/reviews`;
       const payload = {
         selectedTagsArray: selected,
       };
@@ -69,7 +71,7 @@ const Review = ({ defaultRestaurantId }) => {
       // 로컬스토리지에서 로그인 성공 시 세팅했던 진짜 토큰 수집
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`${url}`, {
+      const response = await fetch(`${API_URL}${url}`, {
         method: "POST",
         headers: {
           accept: "*/*",
