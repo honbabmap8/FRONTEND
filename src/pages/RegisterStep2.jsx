@@ -175,7 +175,7 @@ const RegisterStep2 = () => {
           disabled={!canSubmit}
           onClick={async () => {
             try {
-              const res = await fetch(`${API_URL}/api/users/signup`, {
+              const res = await fetch(`${API_URL}/users/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

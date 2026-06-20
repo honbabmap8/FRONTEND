@@ -1,5 +1,7 @@
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "../styles/BtiResult.css";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 export const LEVELS = {
   1: {
@@ -187,7 +189,7 @@ const BtiResult = ({ authToken }) => {
           className="result-btn"
           onClick={async () => {
             try {
-              const res = await fetch("/api/users/signup/eatbti/result", {
+              const res = await fetch(`${API_URL}/users/signup/eatbti/result`, {
                 method: "GET",
                 headers: {
                   Authorization: `Bearer ${token}`,

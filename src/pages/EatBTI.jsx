@@ -157,7 +157,7 @@ const EatBTI = () => {
               try {
                 const token = localStorage.getItem("token");
 
-                const res = await fetch(`${API_URL}/api/users/signup/eatbti`, {
+                const res = await fetch(`${API_URL}/users/signup/eatbti`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
