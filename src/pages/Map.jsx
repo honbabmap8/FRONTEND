@@ -9,48 +9,10 @@ import { fetchMe, getStoredUser } from "../api/user";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const COORDINATE_STORAGE_KEY = "honbab-map-coordinates";
-
-const STORE_COORDINATES = {
-  1: { lat: 37.53372, lng: 126.97218 },
-  2: { lat: 37.53358, lng: 126.97278 },
-  3: { lat: 37.53336, lng: 126.97325 },
-  4: { lat: 37.53318, lng: 126.97386 },
-  5: { lat: 37.53292, lng: 126.97172 },
-  6: { lat: 37.53278, lng: 126.97236 },
-  7: { lat: 37.53254, lng: 126.97302 },
-  8: { lat: 37.53235, lng: 126.97362 },
-  9: { lat: 37.53212, lng: 126.97412 },
-  10: { lat: 37.53184, lng: 126.97202 },
-  11: { lat: 37.53172, lng: 126.97268 },
-  12: { lat: 37.53155, lng: 126.97328 },
-  13: { lat: 37.53138, lng: 126.97386 },
-  14: { lat: 37.53392, lng: 126.97156 },
-  15: { lat: 37.53218, lng: 126.97142 }
-};
 
 const DEFAULT_CENTER = { lat: 37.53458, lng: 126.97302 };
 const RESTAURANT_IDS = Array.from({ length: 15 }, (_, index) => index + 1);
 
-const getInitialCoordinates = () => {
-  if (typeof window === "undefined") {
-    return STORE_COORDINATES;
-  }
-
-  try {
-    const savedCoordinates = JSON.parse(
-      window.localStorage.getItem(COORDINATE_STORAGE_KEY)
-    );
-
-    if (!savedCoordinates || typeof savedCoordinates !== "object") {
-      return STORE_COORDINATES;
-    }
-
-    return { ...STORE_COORDINATES, ...savedCoordinates };
-  } catch {
-    return STORE_COORDINATES;
-  }
-};
 
 const Map = ({ authToken }) => {
   const navigate = useNavigate();
@@ -59,26 +21,11 @@ const Map = ({ authToken }) => {
   const selectedRestaurantId = location.state?.selectedRestaurantId;
   const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
-  const [storeCoordinates, setStoreCoordinates] = useState(getInitialCoordinates);
   const [isStationModalOpen, setIsStationModalOpen] = useState(false);
   const [mapMessage, setMapMessage] = useState("지도를 로딩 중입니다...");
   const [userInfo, setUserInfo] = useState(getStoredUser);
 
-  const updateCoordinate = (restaurantId, nextCoordinate) => {
-    setStoreCoordinates((currentCoordinates) => {
-      const nextCoordinates = {
-        ...currentCoordinates,
-        [restaurantId]: nextCoordinate,
-      };
-
-      window.localStorage.setItem(
-        COORDINATE_STORAGE_KEY,
-        JSON.stringify(nextCoordinates)
-      );
-
-      return nextCoordinates;
-    });
-  };
+  
 
   useEffect(() => {
     let isMounted = true;
@@ -99,6 +46,7 @@ const Map = ({ authToken }) => {
 
     const fetchRestaurants = async () => {
       setMapMessage("지도를 로딩 중입니다...");
+      
       const token = authToken || localStorage.getItem("token");
 
       try {
@@ -113,16 +61,22 @@ const Map = ({ authToken }) => {
             });
 
             if (!response.ok) {
-              console.error(
-                `[Map] restaurant ${restaurantId} fetch failed:`,
-                response.status,
-                await response.text(),
-              );
-              return null;
-            }
+  console.error(
+    `[Map] restaurant ${restaurantId} fetch failed:`,
+    response.status,
+    await response.text(),
+  );
+  return null;
+}
 
-            const result = await response.json();
-            return result.data;
+const result = await response.json();
+
+console.log(
+  `[Map] restaurant ${restaurantId}`,
+  result.data
+);
+
+return result.data;
           }),
         );
 
@@ -214,8 +168,10 @@ const Map = ({ authToken }) => {
 };
 
       stores.forEach((store) => {
-        const coordinates = storeCoordinates[store.restaurantId] ?? store;
-        const restaurantName = store.restaurantName ?? store.name;
+const coordinates = {
+  lat: store.locationInfo?.restLat,
+  lng: store.locationInfo?.restLng,
+};        const restaurantName = store.restaurantName ?? store.name;
 
         if (!coordinates.lat || !coordinates.lng) return;
 
@@ -225,12 +181,11 @@ const Map = ({ authToken }) => {
         );
 
         const marker = new window.kakao.maps.Marker({
-          map,
-          position,
-          image: normalImage,
-          zIndex: 20,
-          draggable: true,
-        });
+  map,
+  position,
+  image: normalImage,
+  zIndex: 20,
+});
 
         const label = new window.kakao.maps.CustomOverlay({
   position,
@@ -271,15 +226,6 @@ const Map = ({ authToken }) => {
           radarOverlay.setMap(map);
         });
 
-        window.kakao.maps.event.addListener(marker, "dragend", () => {
-          const nextPosition = marker.getPosition();
-
-          setSelectedStore(store);
-          updateCoordinate(store.restaurantId, {
-            lat: Number(nextPosition.getLat().toFixed(6)),
-            lng: Number(nextPosition.getLng().toFixed(6)),
-          });
-        });
       });
 
       const initialMarkerItem = markerItems.find(
@@ -299,7 +245,7 @@ const Map = ({ authToken }) => {
       isMounted = false;
       mapContainer.innerHTML = "";
     };
-  }, [stores, storeCoordinates, selectedRestaurantId]);
+  }, [stores, selectedRestaurantId]);
   return (
     <div className="container">
       <header className="header">
