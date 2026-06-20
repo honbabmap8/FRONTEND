@@ -167,18 +167,27 @@ return result.data;
   item.label.setMap(item.isSelected ? map : null);
 };
 
-      stores.forEach((store) => {
-const coordinates = {
-  lat: store.locationInfo?.restLat,
-  lng: store.locationInfo?.restLng,
-};        const restaurantName = store.restaurantName ?? store.name;
+     stores.forEach((store) => {
+  console.log(
+    "[MAP]",
+    store.restaurantId,
+    store.locationInfo?.restLat,
+    store.locationInfo?.restLng
+  );
 
-        if (!coordinates.lat || !coordinates.lng) return;
+  const coordinates = {
+    lat: store.locationInfo?.restLat,
+    lng: store.locationInfo?.restLng,
+  };
 
-        const position = new window.kakao.maps.LatLng(
-          coordinates.lat,
-          coordinates.lng
-        );
+  const restaurantName = store.restaurantName ?? store.name;
+
+  if (!coordinates.lat || !coordinates.lng) return;
+
+  const position = new window.kakao.maps.LatLng(
+    coordinates.lat,
+    coordinates.lng
+  );
 
         const marker = new window.kakao.maps.Marker({
   map,
