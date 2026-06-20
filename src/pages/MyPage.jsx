@@ -55,10 +55,6 @@ const MENUS = [
 const MyPage = () => {
   const navigate = useNavigate();
 
-  // ──────────────────────────────────────────────────────────
-  // ✨ 로그인 시 로컬스토리지에 저장된 유저 정보를 실시간으로 수집
-  // 값이 없을 경우를 대비해 기본값(Fallback)을 안전하게 지정합니다.
-  // ──────────────────────────────────────────────────────────
   const user = {
     name: localStorage.getItem("nickname") || "사용자",
     level: Number(localStorage.getItem("honbabLevel")) || 1,
