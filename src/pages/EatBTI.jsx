@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "../styles/EatBTI.css";
 import BottomNav from "../component/BottomNav";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const QUESTIONS = [
   "혼자 식당에 들어갈 때 직원 시선은 신경 쓰이지 않는다.",
   "2인석 밖에 없어도 혼자 앉는 게 괜찮다.",
@@ -154,7 +157,7 @@ const EatBTI = () => {
               try {
                 const token = localStorage.getItem("token");
 
-                const res = await fetch("/api/users/signup/eatbti", {
+                const res = await fetch(`${API_URL}/api/users/signup/eatbti`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",

@@ -4,6 +4,8 @@ import { LEVELS, STEP_LABELS } from "./BtiResult";
 import "../styles/BtiResult.css";
 import "../styles/Result.css";
 
+
+
 function Result() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
