@@ -71,7 +71,7 @@ function Home({ authToken }) {
       try {
         const responses = await Promise.all(
           RESTAURANT_IDS.map(async (restaurantId) => {
-            const response = await fetch(`${API_URL}/api/restaurants/${restaurantId}`, {
+            const response = await fetch(`${API_URL}/restaurants/${restaurantId}`, {
               method: "GET",
               headers: {
                 accept: "*/*",
