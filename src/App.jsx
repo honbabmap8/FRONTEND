@@ -12,8 +12,7 @@ import RegisterStep1 from "./pages/RegisterStep1";
 import RegisterStep2 from "./pages/RegisterStep2";
 import Result from "./pages/Result";
 import Review from "./pages/Review";
-
-
+import LoadingResult from "./pages/LoadingResult";
 
 function App() {
   return (
@@ -35,6 +34,7 @@ function App() {
 
           {/* EatBTI 검사 및 결과 */}
           <Route path="/register/eatbti" element={<EatBTI />} />
+          <Route path="/bti/loading" element={<LoadingResult />} />
           <Route path="/bti/result/:level" element={<BtiResult />} />
 
           {/* 마이페이지 및 리뷰 */}
