@@ -9,6 +9,8 @@ import "../styles/Home.css";
 
 const RESTAURANT_IDS = Array.from({ length: 15 }, (_, index) => index + 1);
 
+const getSoloLevel = (store) => Number(store.restSoloLevel) || 1;
+
 function Home({ authToken }) {
   const navigate = useNavigate();
   const [stores, setStores] = useState([]);
@@ -30,24 +32,37 @@ function Home({ authToken }) {
     });
   }, [activeFilter, stores]);
 
+  const handleStoreClick = (store) => {
+    navigate("/map", {
+      state: {
+        selectedRestaurantId: store.restaurantId,
+      },
+    });
+  };
+
   useEffect(() => {
     let isMounted = true;
 
     const fetchUser = async () => {
       try {
         const user = await fetchMe(authToken);
+        const nextUserInfo = {
+          nickname: user.nickname || "",
+          honbabLevel: Number(user.honbabLevel) || 1,
+        };
+
         if (isMounted) {
-          setUserInfo({
-            nickname: user.nickname || "",
-            honbabLevel: Number(user.honbabLevel) || 1,
-          });
+          setUserInfo(nextUserInfo);
         }
+
+        return nextUserInfo;
       } catch (error) {
         console.error("[Home] user fetch error:", error);
+        return getStoredUser();
       }
     };
 
-    const fetchRestaurants = async () => {
+    const fetchRestaurants = async (honbabLevel) => {
       setIsLoading(true);
       setErrorMessage("");
       const token = authToken || localStorage.getItem("token");
@@ -79,7 +94,12 @@ function Home({ authToken }) {
 
         if (!isMounted) return;
 
-        setStores(responses.filter(Boolean));
+        setStores(
+          responses
+            .filter(Boolean)
+            .filter((store) => getSoloLevel(store) <= honbabLevel)
+            .sort((a, b) => getSoloLevel(a) - getSoloLevel(b)),
+        );
       } catch (error) {
         if (!isMounted) return;
 
@@ -92,8 +112,14 @@ function Home({ authToken }) {
       }
     };
 
-    fetchUser();
-    fetchRestaurants();
+    const fetchHomeData = async () => {
+      const nextUserInfo = await fetchUser();
+      if (!isMounted) return;
+
+      fetchRestaurants(nextUserInfo.honbabLevel);
+    };
+
+    fetchHomeData();
 
     return () => {
       isMounted = false;
@@ -155,7 +181,11 @@ function Home({ authToken }) {
         {!isLoading &&
           !errorMessage &&
           displayedStores.map((store) => (
-            <HomeDetail key={store.restaurantId} store={store} />
+            <HomeDetail
+              key={store.restaurantId}
+              store={store}
+              onClick={() => handleStoreClick(store)}
+            />
           ))}
       </div>
       <BottomNav />

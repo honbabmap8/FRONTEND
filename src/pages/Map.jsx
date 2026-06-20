@@ -4,7 +4,7 @@ import MapDetail from "../component/MapDetail";
 import BottomNav from "../component/BottomNav";
 import Marker from "../assets/marker.svg";
 import Arrow2 from "../assets/arrow2.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchMe, getStoredUser } from "../api/user";
 
 const COORDINATE_STORAGE_KEY = "honbab-map-coordinates";
@@ -52,12 +52,14 @@ const getInitialCoordinates = () => {
 
 const Map = ({ authToken }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const mapRef = useRef(null);
+  const selectedRestaurantId = location.state?.selectedRestaurantId;
   const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
   const [storeCoordinates, setStoreCoordinates] = useState(getInitialCoordinates);
   const [isStationModalOpen, setIsStationModalOpen] = useState(false);
-  const [mapMessage, setMapMessage] = useState("?앸떦 ?뺣낫瑜?遺덈윭?ㅻ뒗 以?..");
+  const [mapMessage, setMapMessage] = useState("지도를 로딩 중입니다...");
   const [userInfo, setUserInfo] = useState(getStoredUser);
 
   const updateCoordinate = (restaurantId, nextCoordinate) => {
@@ -94,7 +96,7 @@ const Map = ({ authToken }) => {
     };
 
     const fetchRestaurants = async () => {
-      setMapMessage("?앸떦 ?뺣낫瑜?遺덈윭?ㅻ뒗 以?..");
+      setMapMessage("지도를 로딩 중입니다...");
       const token = authToken || localStorage.getItem("token");
 
       try {
@@ -125,16 +127,20 @@ const Map = ({ authToken }) => {
         if (!isMounted) return;
 
         const nextStores = responses.filter(Boolean);
+        const initialSelectedStore = nextStores.find(
+          (store) => store.restaurantId === selectedRestaurantId
+        );
+
         setStores(nextStores);
-        setSelectedStore(null);
+        setSelectedStore(initialSelectedStore ?? null);
         setMapMessage(
-          nextStores.length > 0 ? "" : "?쒖떆???앸떦 ?뺣낫媛 ?놁뒿?덈떎."
+          nextStores.length > 0 ? "" : "검색된 음식점이 없습니다."
         );
       } catch (error) {
         if (!isMounted) return;
 
         console.error("[Map] restaurants fetch error:", error);
-        setMapMessage("?앸떦 ?뺣낫瑜?遺덈윭?ㅼ? 紐삵뻽?듬땲??");
+        setMapMessage("음식점 정보를 불러오는데 실패했습니다.");
       }
     };
 
@@ -144,7 +150,7 @@ const Map = ({ authToken }) => {
     return () => {
       isMounted = false;
     };
-  }, [authToken]);
+  }, [authToken, selectedRestaurantId]);
 
   useEffect(() => {
     if (!window.kakao || !mapRef.current || stores.length === 0) {
@@ -181,26 +187,29 @@ const Map = ({ authToken }) => {
       const markerItems = [];
 
       const radarOverlay = new window.kakao.maps.CustomOverlay({
-        position: center,
-        content: `
-          <div class="marker-radar-wrap" aria-hidden="true">
-            <div class="marker-radar">
-              <div class="radar-rings"></div>
-              <div class="radar-sweep"></div>
-            </div>
-          </div>
-        `,
-        xAnchor: 0.5,
-        yAnchor: 0.5,
-        clickable: false,
-        zIndex: 0,
-      });
+  position: center,
+  content: `
+    <div class="marker-radar-wrap" aria-hidden="true">
+      <div class="marker-radar">
+        <div class="radar-rings"></div>
+        <div class="radar-sweep"></div>
+      </div>
+    </div>
+  `,
+  xAnchor: 0.5,
+  yAnchor: 0.5,
+  clickable: false,
+  zIndex: 1,
+});
 
       const applyMarkerState = (item) => {
-        item.marker.setImage(item.isSelected ? bigImage : normalImage);
-        item.marker.setZIndex(item.isSelected ? 30 : 20);
-        item.label.setMap(item.isSelected ? map : null);
-      };
+  item.marker.setImage(item.isSelected ? bigImage : normalImage);
+  item.marker.setZIndex(item.isSelected ? 30 : 20);
+
+  item.label.setZIndex(999);
+
+  item.label.setMap(item.isSelected ? map : null);
+};
 
       stores.forEach((store) => {
         const coordinates = storeCoordinates[store.restaurantId] ?? store;
@@ -222,14 +231,15 @@ const Map = ({ authToken }) => {
         });
 
         const label = new window.kakao.maps.CustomOverlay({
-          position,
-          content: `
-            <div class="map-marker-label">
-              ${restaurantName}
-            </div>
-          `,
-          yAnchor: 0,
-        });
+  position,
+  content: `
+    <div class="map-marker-label">
+      ${restaurantName}
+    </div>
+  `,
+  yAnchor: 0,
+  zIndex: 999,
+});
 
         label.setMap(null);
 
@@ -269,13 +279,25 @@ const Map = ({ authToken }) => {
           });
         });
       });
+
+      const initialMarkerItem = markerItems.find(
+        (item) => item.store.restaurantId === selectedRestaurantId
+      );
+
+      if (initialMarkerItem) {
+        initialMarkerItem.isSelected = true;
+        applyMarkerState(initialMarkerItem);
+        radarOverlay.setPosition(initialMarkerItem.position);
+        radarOverlay.setMap(map);
+        map.setCenter(initialMarkerItem.position);
+      }
     });
 
     return () => {
       isMounted = false;
       mapContainer.innerHTML = "";
     };
-  }, [stores, storeCoordinates]);
+  }, [stores, storeCoordinates, selectedRestaurantId]);
   return (
     <div className="container">
       <header className="header">
