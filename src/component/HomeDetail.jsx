@@ -15,7 +15,7 @@ const levelImageMap = {
   5: Level5,
 };
 
-function HomeDetail({ store }) {
+function HomeDetail({ store, onClick }) {
   if (!store) return null;
 
   const location = store.locationInfo;
@@ -28,7 +28,18 @@ function HomeDetail({ store }) {
       : `${location?.distance ?? 0}m`;
 
   return (
-    <div className="home-detail-container">
+    <div
+      className="home-detail-container"
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onClick?.();
+        }
+      }}
+    >
       <img
         src={store.imageUrl || Eximg}
         alt={restaurantName}
