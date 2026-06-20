@@ -112,7 +112,7 @@ const Login = () => {
             type="text"
             name="id"
             className="login-input"
-            placeholder="이메일 주소 또는 아이디"
+            placeholder="아이디"
             value={form.id}
             onChange={handleChange}
           />
