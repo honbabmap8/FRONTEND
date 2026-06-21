@@ -34,6 +34,9 @@ const getTagCategory = (tagName = "") => {
   ) {
     return "waiting";
   }
+  if (tagName.includes("늦게")) {
+    return "night";
+  }
 
   if (tagName.includes("조용")) {
     return "quiet";
@@ -64,6 +67,10 @@ const getTagIcon = (tagName = "") => {
   if (tagName.includes("조용")) {
     return "/image/quiet.svg";
   }
+  if (tagName.includes("늦게")) {
+    return "/image/night.svg";
+  }
+
 
   return "/image/hon_table.svg";
 };
