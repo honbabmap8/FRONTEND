@@ -22,20 +22,12 @@ const getTagIcon = (tagName = "") => {
     return "/image/fast.svg";
   }
 
-  if (
-    tagName.includes("야식") ||
-    tagName.includes("늦") ||
-    tagName.includes("24시간")
-  ) {
-    return "/image/night.svg";
-  }
-
   if (tagName.includes("웨이팅") || tagName.includes("회전")) {
     return "/image/waiting.svg";
   }
   else
 
-  return "/image/best-honbab.svg";
+  return "/image/night.svg";
 };
 
 function MapDetail({ store }) {
