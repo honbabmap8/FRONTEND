@@ -15,21 +15,55 @@ const FEATURE_ICON_MAP = {
   "재방문율": "re_come",
 };
 
+const getTagCategory = (tagName = "") => {
+  if (
+    tagName.includes("가성비") ||
+    tagName.includes("1인 메뉴") ||
+    tagName.includes("양이 적당")
+  ) {
+    return "cheap";
+  }
+
+  if (tagName.includes("포장")) {
+    return "fast";
+  }
+
+  if (
+    tagName.includes("웨이팅") ||
+    tagName.includes("회전")
+  ) {
+    return "waiting";
+  }
+
+  if (tagName.includes("조용")) {
+    return "quiet";
+  }
+
+  return "hon_table";
+};
 const getTagIcon = (tagName = "") => {
-  if (tagName.includes("가성비") || tagName.includes("1인 메뉴") || tagName.includes("양이 적당")) return "/image/cheap.svg";
+  if (
+    tagName.includes("가성비") ||
+    tagName.includes("1인 메뉴") ||
+    tagName.includes("양이 적당")
+  ) {
+    return "/image/cheap.svg";
+  }
 
   if (tagName.includes("포장")) {
     return "/image/fast.svg";
   }
 
-  if (tagName.includes("웨이팅") || tagName.includes("회전")) {
+  if (
+    tagName.includes("웨이팅") ||
+    tagName.includes("회전")
+  ) {
     return "/image/waiting.svg";
   }
-  if (tagName.includes("조용") || tagName.includes("회전")) {
+
+  if (tagName.includes("조용")) {
     return "/image/quiet.svg";
   }
-
-  else
 
   return "/image/hon_table.svg";
 };
@@ -41,6 +75,17 @@ function MapDetail({ store }) {
 
   const features = restaurant.restFeatureList ?? [];
   const tags = restaurant.restReviewTagList ?? [];
+  const uniqueTags = [];
+const usedCategories = new Set();
+
+tags.forEach((tag) => {
+  const category = getTagCategory(tag.tagName);
+
+  if (!usedCategories.has(category)) {
+    usedCategories.add(category);
+    uniqueTags.push(tag);
+  }
+});
   const location = restaurant.locationInfo;
 
   const restaurantName =
@@ -129,7 +174,7 @@ function MapDetail({ store }) {
       </div>
 
       <div className="mapdetailbtns">
-        {tags.map((tag) => {
+        {uniqueTags.map((tag) => {
           const tagIcon = getTagIcon(tag.tagName);
 
           return (
