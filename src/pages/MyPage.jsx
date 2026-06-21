@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/MyPage.css";
 import BottomNav from "../component/BottomNav";
-
 
 const LEVEL_LABELS = {
   1: "혼밥 초보자",
@@ -15,33 +14,13 @@ const LEVEL_LABELS = {
 const MOCK_FAVORITES = [
   {
     id: 1,
-    name: "101번지남산돈까스 삼각지점",
-    menu: "돈까스누들맵떡, 남산치킨까스",
-    distance: "47",
-    area: "삼각지역",
-    level: 2,
-    tags: ["혼밥 만족도 높음", "1인 메뉴 가능"],
-    image: "/image/store1.png",
-  },
-  {
-    id: 2,
-    name: "부국정",
-    menu: "양곰탕, 한우육회비빔밥",
-    distance: "110",
+    name: "멜팅팟",
+    menu: "전복 내장 파스타, 토마토 꿀 가자미",
+    distance: "162",
     area: "삼각지역",
     level: 3,
-    tags: ["1인석 있음", "조용한 분위기"],
+    tags: ["혼밥 30분 코스", "혼자 힐링하기 좋음"],
     image: "/image/store2.jpeg",
-  },
-  {
-    id: 3,
-    name: "마토미",
-    menu: "수아데로 타코, 트리파스 타코",
-    distance: "190",
-    area: "삼각지역",
-    level: 5,
-    tags: ["1인 메뉴 가능", "조용한 분위기"],
-    image: "/image/store3.jpeg",
   },
 ];
 
@@ -60,7 +39,10 @@ const MyPage = () => {
     level: Number(localStorage.getItem("honbabLevel")) || 1,
   };
 
-  const favorites = MOCK_FAVORITES;
+  // 로그인한 유저의 고유 닉네임 키
+  const hasLiked =
+    localStorage.getItem(`hasLikedStore_${user.name}`) === "true";
+  const favorites = hasLiked ? MOCK_FAVORITES : [];
   const isEmpty = favorites.length === 0;
 
   return (
