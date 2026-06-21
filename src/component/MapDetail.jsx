@@ -16,7 +16,7 @@ const FEATURE_ICON_MAP = {
 };
 
 const getTagIcon = (tagName = "") => {
-  if (tagName.includes("가성비")) return "/image/cheap.svg";
+  if (tagName.includes("가성비") || tagName.includes("1인 메뉴") || tagName.includes("양이 적당")) return "/image/cheap.svg";
 
   if (tagName.includes("빠른") || tagName.includes("회전")) {
     return "/image/fast.svg";
