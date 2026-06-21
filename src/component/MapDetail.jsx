@@ -25,9 +25,13 @@ const getTagIcon = (tagName = "") => {
   if (tagName.includes("웨이팅") || tagName.includes("회전")) {
     return "/image/waiting.svg";
   }
+  if (tagName.includes("조용") || tagName.includes("회전")) {
+    return "/image/quiet.svg";
+  }
+
   else
 
-  return "/image/night.svg";
+  return "/image/hon_table.svg";
 };
 
 function MapDetail({ store }) {
