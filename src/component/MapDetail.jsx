@@ -18,7 +18,7 @@ const FEATURE_ICON_MAP = {
 const getTagIcon = (tagName = "") => {
   if (tagName.includes("가성비") || tagName.includes("1인 메뉴") || tagName.includes("양이 적당")) return "/image/cheap.svg";
 
-  if (tagName.includes("빠른") || tagName.includes("회전")) {
+  if (tagName.includes("포장")) {
     return "/image/fast.svg";
   }
 
@@ -30,7 +30,7 @@ const getTagIcon = (tagName = "") => {
     return "/image/night.svg";
   }
 
-  if (tagName.includes("웨이팅") || tagName.includes("대기")) {
+  if (tagName.includes("웨이팅") || tagName.includes("회전")) {
     return "/image/waiting.svg";
   }
 
