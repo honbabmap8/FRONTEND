@@ -98,6 +98,8 @@ const Review = ({ defaultRestaurantId }) => {
         `hasLikedStore_${currentNickname}`,
         liked ? "true" : "false",
       );
+
+      navigate("/mypage");
     } catch (error) {
       alert(error.message || "리뷰 등록 중 오류가 발생했습니다.");
     } finally {
