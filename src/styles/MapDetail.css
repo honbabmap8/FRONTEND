@@ -80,11 +80,9 @@
 }
 .storeimg {
   height: 133px;
-  width: 128px;
-  flex: 0 0 128px;
+  width: auto;
+  max-width: 128px;
   display: block;
-  object-fit: cover;
-  object-position: center;
   border-radius: 20px;
 }
 
