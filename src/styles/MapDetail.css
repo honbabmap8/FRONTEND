@@ -108,6 +108,10 @@
     align-items: center;
     margin: 7px auto;
 }
+.mapdetailbottom button{
+    height: 13px;
+    width: auto;
+}
 .name{
   font-size: 20px;
   font-weight: 700;
