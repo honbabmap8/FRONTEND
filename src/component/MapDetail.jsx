@@ -83,7 +83,9 @@ function MapDetail({ store }) {
   const features = restaurant.restFeatureList ?? [];
   const tags = restaurant.restReviewTagList ?? [];
   const uniqueTags = [];
-const usedCategories = new Set();
+  const usedCategories = new Set();
+  
+  
 
 tags.forEach((tag) => {
   const category = getTagCategory(tag.tagName);
