@@ -94,7 +94,7 @@ const Review = ({ defaultRestaurantId }) => {
       console.log("[Review] response body:", responseText);
 
       alert("리뷰가 등록되었습니다.");
-      navigate(-1);
+      navigate("/mypage");
     } catch (error) {
       alert(error.message || "리뷰 등록 중 오류가 발생했습니다.");
     } finally {
