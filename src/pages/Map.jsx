@@ -165,9 +165,14 @@ return result.data;
   item.label.setZIndex(999);
 
   item.label.setMap(item.isSelected ? map : null);
-};
+      };
+      const availableStores = stores.filter(
+  (store) =>
+    Number(store.restSoloLevel || 1) <=
+    Number(userInfo.honbabLevel || 1)
+);
 
-     stores.forEach((store) => {
+     availableStores.forEach((store) => {
   console.log(
     "[MAP]",
     store.restaurantId,
