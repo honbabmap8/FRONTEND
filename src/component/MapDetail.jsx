@@ -33,8 +33,9 @@ const getTagIcon = (tagName = "") => {
   if (tagName.includes("웨이팅") || tagName.includes("회전")) {
     return "/image/waiting.svg";
   }
+  else
 
-  return null;
+  return "/image/best-honbab.svg";
 };
 
 function MapDetail({ store }) {
