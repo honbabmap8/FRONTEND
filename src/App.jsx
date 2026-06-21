@@ -13,13 +13,14 @@ import RegisterStep2 from "./pages/RegisterStep2";
 import Result from "./pages/Result";
 import Review from "./pages/Review";
 import LoadingResult from "./pages/LoadingResult";
+import Splash from "./pages/Splash";
 
 function App() {
   return (
     <BrowserRouter>
       <RegisterProvider>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/" element={<Splash />} />
 
           {/* 지도 및 메인 플로우 */}
           <Route path="/map" element={<Map />} />

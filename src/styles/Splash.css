@@ -1,0 +1,32 @@
+.splash-page {
+  position: relative;
+  width: 100%;
+  max-width: 393px;
+  height: 100dvh;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.splash-logo {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+}
+
+.splash-logo-name {
+  width: 140px;
+  height: auto;
+  object-fit: contain;
+}
