@@ -197,11 +197,11 @@ return result.data;
 });
 
         const label = new window.kakao.maps.CustomOverlay({
-  position,
-  content: `
-    <div class="map-marker-label">
-      ${restaurantName}
-    </div>
+          position,
+           content: `
+           <div class="map-marker-label">
+              ${restaurantName}
+           </div>
   `,
   yAnchor: 0,
   zIndex: 999,
