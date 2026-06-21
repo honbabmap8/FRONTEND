@@ -85,7 +85,7 @@ function Result() {
           <button
             className="result-btn"
             type="button"
-            onClick={() => navigate(`/map?level=${lv}`)}
+            onClick={() => navigate(`/home`)}
           >
             <span>레벨에 맞는 맛집 추천 보기</span>
             <img src="/image/move.svg" alt="" className="result-btn-icon" />
