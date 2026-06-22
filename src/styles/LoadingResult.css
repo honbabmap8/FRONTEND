@@ -1,0 +1,95 @@
+.loading-page {
+  position: relative;
+  width: 100%;
+  max-width: 393px;
+  height: 100dvh;
+  margin: 0 auto;
+  background: #ffe7e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 0 32px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* 상단 텍스트 */
+.loading-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000000;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* 캐릭터 아이콘 */
+.loading-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-icon {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-top: -15px;
+}
+
+/* 로딩 바 */
+.loading-bar-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.loading-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loading-bar-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: -0.5px;
+}
+
+.loading-bar-percent {
+  font-size: 15px;
+  font-weight: 700;
+  color: #faa38a;
+}
+
+.loading-bar-bg {
+  width: 100%;
+  height: 10px;
+  background: #f5c8bc;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  background: #e6725b;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+/* 하단 설명 */
+.loading-desc {
+  font-size: 13px;
+  color: #444;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.7;
+  margin: 0;
+  margin-top: -4px;
+  letter-spacing: -0.1px;
+}

@@ -2,7 +2,6 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "../styles/BtiResult.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
-
 export const LEVELS = {
   1: {
     badge: "LEVEL 1",
@@ -205,9 +204,9 @@ const BtiResult = ({ authToken }) => {
                 return;
               }
 
-              // 결과 데이터 받아서 Map으로 이동 (level 파라미터 포함)
+              // 결과 데이터 받아서 Home으로 이동 (level 파라미터 포함)
               const data = await res.json();
-              navigate(`/map?level=${lv}`, { state: { resultData: data } });
+              navigate("/Home", { state: { btiLevel: lv, resultData: data } });
             } catch (err) {
               alert("네트워크 오류가 발생했습니다.");
             }

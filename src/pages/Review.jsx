@@ -24,16 +24,15 @@ const KEYWORDS = {
   ],
 };
 
-// 상위에서 정적으로 관리하던 authToken 제거
 const Review = ({ defaultRestaurantId }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const store = location.state?.store || {
     restaurantId: defaultRestaurantId,
-    name: "콘콘",
+    name: "멜팅팟",
     date: "2026. 06. 22 (월)",
-    visitCount: 3,
+    visitCount: 1,
   };
   const restaurantId = store.restaurantId ?? defaultRestaurantId;
 
@@ -68,7 +67,6 @@ const Review = ({ defaultRestaurantId }) => {
       console.log("[Review] POST", url);
       console.log("[Review] request body:", payload);
 
-      // 로컬스토리지에서 로그인 성공 시 세팅했던 진짜 토큰 수집
       const token = localStorage.getItem("token");
 
       const response = await fetch(`${API_URL}${url}`, {
@@ -76,7 +74,6 @@ const Review = ({ defaultRestaurantId }) => {
         headers: {
           accept: "*/*",
           "Content-Type": "application/json",
-          // ✨ 하드코딩된 변수 대신 브라우저 저장소의 실제 토큰을 실시간으로 반영
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
@@ -94,6 +91,14 @@ const Review = ({ defaultRestaurantId }) => {
       console.log("[Review] response body:", responseText);
 
       alert("리뷰가 등록되었습니다.");
+
+      // 현재 유저의 닉네임을 가져와 계정별 고유 키 생성
+      const currentNickname = localStorage.getItem("nickname") || "guest";
+      localStorage.setItem(
+        `hasLikedStore_${currentNickname}`,
+        liked ? "true" : "false",
+      );
+
       navigate("/mypage");
     } catch (error) {
       alert(error.message || "리뷰 등록 중 오류가 발생했습니다.");

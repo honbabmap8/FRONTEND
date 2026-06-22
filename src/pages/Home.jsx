@@ -3,7 +3,7 @@ import HomeImg from "../assets/hometopimg.png";
 import Click from "../assets/click.svg";
 import HomeDetail from "../component/HomeDetail";
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { fetchMe, getStoredUser } from "../api/user";
 import "../styles/Home.css";
 
@@ -14,11 +14,21 @@ const getSoloLevel = (store) => Number(store.restSoloLevel) || 1;
 
 function Home({ authToken }) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const btiLevel = location.state?.btiLevel;
+
   const [stores, setStores] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [activeFilter, setActiveFilter] = useState("level");
-  const [userInfo, setUserInfo] = useState(getStoredUser);
+  const [userInfo, setUserInfo] = useState(() => {
+    const stored = getStoredUser();
+    return {
+      ...stored,
+      honbabLevel: btiLevel || stored?.honbabLevel || 1,
+    };
+  });
 
   const displayedStores = useMemo(() => {
     if (activeFilter !== "distance") {
@@ -47,9 +57,10 @@ function Home({ authToken }) {
     const fetchUser = async () => {
       try {
         const user = await fetchMe(authToken);
+        const currentLevel = btiLevel || Number(user.honbabLevel) || 1;
         const nextUserInfo = {
           nickname: user.nickname || "",
-          honbabLevel: Number(user.honbabLevel) || 1,
+          honbabLevel: currentLevel,
         };
 
         if (isMounted) {
@@ -59,7 +70,11 @@ function Home({ authToken }) {
         return nextUserInfo;
       } catch (error) {
         console.error("[Home] user fetch error:", error);
-        return getStoredUser();
+        const stored = getStoredUser();
+        return {
+          nickname: stored?.nickname || "",
+          honbabLevel: btiLevel || Number(stored?.honbabLevel) || 1,
+        };
       }
     };
 
@@ -71,13 +86,16 @@ function Home({ authToken }) {
       try {
         const responses = await Promise.all(
           RESTAURANT_IDS.map(async (restaurantId) => {
-            const response = await fetch(`${API_URL}/restaurants/${restaurantId}`, {
-              method: "GET",
-              headers: {
-                accept: "*/*",
-                Authorization: `Bearer ${token}`,
+            const response = await fetch(
+              `${API_URL}/restaurants/${restaurantId}`,
+              {
+                method: "GET",
+                headers: {
+                  accept: "*/*",
+                  Authorization: `Bearer ${token}`,
+                },
               },
-            });
+            );
 
             if (!response.ok) {
               console.error(
@@ -105,6 +123,7 @@ function Home({ authToken }) {
         if (!isMounted) return;
 
         console.error("[Home] restaurants fetch error:", error);
+
         setErrorMessage("식당 정보를 불러오는 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
       } finally {
         if (isMounted) {
@@ -125,7 +144,7 @@ function Home({ authToken }) {
     return () => {
       isMounted = false;
     };
-  }, [authToken]);
+  }, [authToken, btiLevel]);
 
   return (
     <div className="container">
@@ -144,14 +163,17 @@ function Home({ authToken }) {
           </select>
 
           <div>
-            <p id="contentslevel">레벨{userInfo.honbabLevel}</p>
-            <p id="contentsp">안녕하세요 <strong>{userInfo.nickname}</strong> 님<br />혼밥 식당 추천해드려요</p>
+            <p id="contentslevel">레벨 {userInfo.honbabLevel}</p>
+            <p id="contentsp">
+              안녕하세요 <strong>{userInfo.nickname}</strong> 님<br />
+              혼밥 식당 추천해드려요
+            </p>
           </div>
 
-           <button onClick={() => navigate("/map")}>
-      <img id="clickimg" src={Click} alt="" />
-      <p id="clickp">오늘 혼밥 어때요?</p>
-    </button>
+          <button onClick={() => navigate("/map")}>
+            <img id="clickimg" src={Click} alt="" />
+            <p id="clickp">오늘 혼밥 어때요?</p>
+          </button>
         </div>
       </div>
 
@@ -175,7 +197,9 @@ function Home({ authToken }) {
       </div>
 
       <div className="contentlist">
-        {isLoading && <p className="home-list-message">데이터를 불러오는 중입니다...</p>}
+        {isLoading && (
+          <p className="home-list-message">데이터를 불러오는 중입니다...</p>
+        )}
         {!isLoading && errorMessage && (
           <p className="home-list-message">{errorMessage}</p>
         )}
@@ -195,5 +219,3 @@ function Home({ authToken }) {
 }
 
 export default Home;
-
-

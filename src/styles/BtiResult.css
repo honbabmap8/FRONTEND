@@ -98,9 +98,9 @@
 /* ── 흰 카드 — 양옆 여백 있게 ── */
 .result-card {
   position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom:0;
+  left: 35px;
+  right: 35px;
+  bottom: 0;
   z-index: 1;
   background: #fff;
   border-radius: 24px 24px 0 0;
@@ -200,12 +200,12 @@
 .result-feature-box {
   background: #fcf1e1;
   border-radius: 13px;
-  padding: 9px 10px 11px;
+  padding: 9px 10px 9px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  max-width: 292px;
+  max-width: 280px;
 }
 
 .result-feature-title {
@@ -227,7 +227,7 @@
 .result-features {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 8px;
 }
 
 .result-feature-item {
@@ -235,17 +235,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .result-feature-img {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
 }
 
 .result-feature-text {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   color: #000000;
   text-align: center;

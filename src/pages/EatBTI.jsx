@@ -199,7 +199,9 @@ const EatBTI = () => {
                 const level = resultData?.honbabLevel;
 
                 if (level !== undefined) {
-                  navigate(`/bti/result/${level}`);
+                  navigate("/bti/loading", {
+                    state: { targetLevel: level, authToken: token },
+                  });
                 } else {
                   alert("결과 데이터를 읽어오지 못했습니다.");
                 }

@@ -4,7 +4,6 @@ import { useRegister } from "../context/RegisterContext";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-
 const RegisterStep2 = () => {
   const navigate = useNavigate();
   const { formData, updateForm } = useRegister();
@@ -188,7 +187,7 @@ const RegisterStep2 = () => {
                 alert("입력값을 확인해주세요.");
                 return;
               }
-              if (res.status === 409) {
+              if (res.status === 404) {
                 alert("이미 사용 중인 아이디입니다.");
                 return;
               }
