@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/Register.css";
-import BottomNav from "../component/BottomNav";
 import { useRegister } from "../context/RegisterContext";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -210,7 +209,6 @@ const RegisterStep2 = () => {
         </button>
       </div>
 
-      <BottomNav />
     </div>
   );
 };
