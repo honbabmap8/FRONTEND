@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Register.css";
-import BottomNav from "../component/BottomNav";
 
 
 
@@ -149,7 +148,7 @@ const RegisterStep1 = () => {
         </button>
       </div>
 
-      <BottomNav />
+   
     </div>
   );
 };

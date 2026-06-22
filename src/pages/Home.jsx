@@ -123,7 +123,8 @@ function Home({ authToken }) {
         if (!isMounted) return;
 
         console.error("[Home] restaurants fetch error:", error);
-        setErrorMessage("식당 정보를 불러오는데 실패했습니다.");
+
+        setErrorMessage("식당 정보를 불러오는 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
       } finally {
         if (isMounted) {
           setIsLoading(false);
